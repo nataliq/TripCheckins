@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E156EC511F39EB8A006AF828 /* FSOAuth.m */; };
 		E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3611F39DB0500963177 /* AppDelegate.swift */; };
 		E16ED3641F39DB0500963177 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3631F39DB0500963177 /* ViewController.swift */; };
 		E16ED3691F39DB0500963177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16ED3681F39DB0500963177 /* Assets.xcassets */; };
@@ -33,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TripCheckins-Bridging-Header.h"; sourceTree = "<group>"; };
+		E156EC511F39EB8A006AF828 /* FSOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSOAuth.m; path = "../../../../../../Downloads/foursquare-ios-oauth-master/FSOAuth.m"; sourceTree = "<group>"; };
+		E156EC521F39EB8A006AF828 /* FSOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSOAuth.h; path = "../../../../../../Downloads/foursquare-ios-oauth-master/FSOAuth.h"; sourceTree = "<group>"; };
 		E16ED35E1F39DB0500963177 /* TripCheckins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripCheckins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16ED3611F39DB0500963177 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E16ED3631F39DB0500963177 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +76,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E156EC4F1F39EB6B006AF828 /* FSOAuth */ = {
+			isa = PBXGroup;
+			children = (
+				E156EC521F39EB8A006AF828 /* FSOAuth.h */,
+				E156EC511F39EB8A006AF828 /* FSOAuth.m */,
+				E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */,
+			);
+			path = FSOAuth;
+			sourceTree = "<group>";
+		};
 		E16ED3551F39DB0500963177 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +109,7 @@
 		E16ED3601F39DB0500963177 /* TripCheckins */ = {
 			isa = PBXGroup;
 			children = (
+				E156EC4F1F39EB6B006AF828 /* FSOAuth */,
 				E16ED3611F39DB0500963177 /* AppDelegate.swift */,
 				E16ED3631F39DB0500963177 /* ViewController.swift */,
 				E16ED3681F39DB0500963177 /* Assets.xcassets */,
@@ -190,6 +205,7 @@
 				TargetAttributes = {
 					E16ED35D1F39DB0500963177 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 					E16ED3711F39DB0600963177 = {
 						CreatedOnToolsVersion = 9.0;
@@ -253,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E16ED3641F39DB0500963177 /* ViewController.swift in Sources */,
+				E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */,
 				E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,11 +428,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D3U89ZTCSN;
 				INFOPLIST_FILE = TripCheckins/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nataliya-bg.TripCheckins";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TripCheckins/FSOAuth/TripCheckins-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -425,11 +445,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D3U89ZTCSN;
 				INFOPLIST_FILE = TripCheckins/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nataliya-bg.TripCheckins";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TripCheckins/FSOAuth/TripCheckins-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -512,6 +534,7 @@
 				E16ED3881F39DB0600963177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E16ED3891F39DB0600963177 /* Build configuration list for PBXNativeTarget "TripCheckinsTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +543,7 @@
 				E16ED38B1F39DB0600963177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E16ED38C1F39DB0600963177 /* Build configuration list for PBXNativeTarget "TripCheckinsUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +552,7 @@
 				E16ED38E1F39DB0600963177 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
