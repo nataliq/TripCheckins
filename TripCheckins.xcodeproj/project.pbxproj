@@ -26,6 +26,7 @@
 		E1D529021F3B81E0000D52C1 /* CheckinItemsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */; };
 		E1D529041F3B96D8000D52C1 /* CheckinsDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */; };
 		E1D529071F3BAA7C000D52C1 /* CompactCheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */; };
+		E1D529091F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinItemsParser.swift; sourceTree = "<group>"; };
 		E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsDataSourceTests.swift; sourceTree = "<group>"; };
 		E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactCheckinCellModel.swift; sourceTree = "<group>"; };
+		E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareEndpointConstructorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			children = (
 				E16ED3761F39DB0600963177 /* CheckinItemsParserTests.swift */,
 				E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */,
+				E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */,
 				E16ED3781F39DB0600963177 /* Info.plist */,
 			);
 			path = TripCheckinsTests;
@@ -341,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D529091F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift in Sources */,
 				E1D529041F3B96D8000D52C1 /* CheckinsDataSourceTests.swift in Sources */,
 				E16ED3771F39DB0600963177 /* CheckinItemsParserTests.swift in Sources */,
 			);
