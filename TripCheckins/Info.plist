@@ -8,7 +8,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tripcheckins</string>
-				<string>https://tripcheckins</string>
+				<string>tripcheckins://foursquare</string>
 			</array>
 			<key>CFBundleURLName</key>
 			<string>com.nataliya-bg.TripCheckins</string>
