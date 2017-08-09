@@ -14,13 +14,16 @@ class FoursquareEndpointConstructor {
                             to toDate: Date?) -> URL? {
         var components = URLComponents(string: getCheckinsEnpointString)
         var queryItems = [URLQueryItem(name: "oauth_token", value: authorizationToken),
-                          URLQueryItem(name: "v", value: apiVersion)]
+                          URLQueryItem(name: "v", value: apiVersion),
+                          URLQueryItem(name: "limit", value: "250")]
         
         if let fromDate = fromDate {
-            queryItems.append(URLQueryItem(name: "afterTimestamp", value: fromDate.timeIntervalSince1970.description))
+            queryItems.append(URLQueryItem(name: "afterTimestamp",
+                                           value: String(format:"%.0f", fromDate.timeIntervalSince1970)))
         }
         if let toDate = toDate {
-            queryItems.append(URLQueryItem(name: "beforeTimestamp", value: toDate.timeIntervalSince1970.description))
+            queryItems.append(URLQueryItem(name: "beforeTimestamp",
+                                           value: String(format:"%.0f", toDate.timeIntervalSince1970)))
         }
         components?.queryItems = queryItems
         return components?.url

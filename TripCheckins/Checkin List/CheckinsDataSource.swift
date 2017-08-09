@@ -11,6 +11,8 @@ import Foundation
 class CheckinsDataSource {
     let fetcher: CheckinFetcher
     let parser: CheckinItemsParser
+    var fromDate: Date?
+    var toDate: Date?
     
     private var items: [CheckinItem]?
     
@@ -20,10 +22,10 @@ class CheckinsDataSource {
     }
     
     func reloadItems(_ completion:@escaping () -> Void) {
-        fetcher.fetch { (json) in
+        fetcher.fetch(from: fromDate, to: toDate, withCompletion: { (json) in
             self.items = self.parser.itemsFromJSON(json)
             completion()
-        }
+        })
     }
     
     func numberOfItems() -> Int {

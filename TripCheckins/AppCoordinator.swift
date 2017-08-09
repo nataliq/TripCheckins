@@ -56,7 +56,10 @@ class AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
         // TODO: move to a child coordinator
         let fetcher = CheckinFetcher(authorizationToken: token)
         let dataSource = CheckinsDataSource(fetcher: fetcher, parser: CheckinItemsParser())
-        let controller = CheckinListViewController(checkinsDataSource: dataSource)
+        let checkinListViewModel = CheckinListViewModel(title: "All checkins",
+                                                        cellsNibName: "CompactCheckinTableViewCell",
+                                                        cellsHeight: 80)
+        let controller = CheckinListViewController(checkinsDataSource: dataSource, viewModel: checkinListViewModel)
         
         let animated = navigationController.viewControllers.count > 0
         navigationController.pushViewController(controller, animated: animated)

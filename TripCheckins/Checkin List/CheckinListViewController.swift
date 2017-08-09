@@ -10,9 +10,11 @@ import Foundation
 
 class CheckinListViewController: UITableViewController {
     let checkinsDataSource: CheckinsDataSource
+    let viewModel: CheckinListViewModel
     
-    init(checkinsDataSource: CheckinsDataSource) {
+    init(checkinsDataSource: CheckinsDataSource, viewModel: CheckinListViewModel) {
         self.checkinsDataSource = checkinsDataSource
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,10 +25,10 @@ class CheckinListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Checkins list"
-        let nib = UINib(nibName: "CompactCheckinTableViewCell", bundle: Bundle(for: self.classForCoder))
+        title = viewModel.title
+        let nib = UINib(nibName: viewModel.cellsNibName, bundle: Bundle(for: self.classForCoder))
         tableView.register(nib, forCellReuseIdentifier: "Cell")
-        tableView.rowHeight = 80
+        tableView.rowHeight = viewModel.cellsHeight
         tableView.allowsSelection = false
         
         checkinsDataSource.reloadItems { self.tableView.reloadData() }

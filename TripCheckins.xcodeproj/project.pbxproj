@@ -27,6 +27,7 @@
 		E1D529041F3B96D8000D52C1 /* CheckinsDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */; };
 		E1D529071F3BAA7C000D52C1 /* CompactCheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */; };
 		E1D529091F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */; };
+		E1D5290B1F3BBA74000D52C1 /* CheckinListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsDataSourceTests.swift; sourceTree = "<group>"; };
 		E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactCheckinCellModel.swift; sourceTree = "<group>"; };
 		E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareEndpointConstructorTests.swift; sourceTree = "<group>"; };
+		E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */,
 				E1D528FB1F3AF684000D52C1 /* CheckinsDataSource.swift */,
 				E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */,
+				E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */,
 				E1D528FD1F3AFDF1000D52C1 /* CheckinTableViewCell.swift */,
 				E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */,
 				E1D528FF1F3B023A000D52C1 /* CompactCheckinTableViewCell.xib */,
@@ -328,6 +331,7 @@
 				E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */,
 				E1D528FC1F3AF684000D52C1 /* CheckinsDataSource.swift in Sources */,
 				E1D528F31F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift in Sources */,
+				E1D5290B1F3BBA74000D52C1 /* CheckinListViewModel.swift in Sources */,
 				E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */,
 				E1D528F11F39FF87000D52C1 /* CheckinFetcher.swift in Sources */,
 				E1D529071F3BAA7C000D52C1 /* CompactCheckinCellModel.swift in Sources */,
