@@ -6,13 +6,28 @@
 //  Copyright © 2017 Nataliya Patsovska. All rights reserved.
 //
 
-class CheckinFetcher {
-    let endpointAuthTokenPrefix = "https://api.foursquare.com/v2/users/self/checkins?v=20170808&oauth_token="
-    
-    var getCurrentUserCheckinsURL: URL? {
-        return URL(string:endpointAuthTokenPrefix + authorizationToken)
+class FoursquareEndpointConstructor {
+    static let getCheckinsEnpointString = "https://api.foursquare.com/v2/users/self/checkins"
+    static let apiVersion = "20170808"
+    static func checkinsURL(forUserToken authorizationToken: String,
+                            from fromDate: Date?,
+                            to toDate: Date?) -> URL? {
+        var components = URLComponents(string: getCheckinsEnpointString)
+        var queryItems = [URLQueryItem(name: "oauth_token", value: authorizationToken),
+                          URLQueryItem(name: "v", value: apiVersion)]
+        
+        if let fromDate = fromDate {
+            queryItems.append(URLQueryItem(name: "afterTimestamp", value: fromDate.timeIntervalSince1970.description))
+        }
+        if let toDate = toDate {
+            queryItems.append(URLQueryItem(name: "beforeTimestamp", value: toDate.timeIntervalSince1970.description))
+        }
+        components?.queryItems = queryItems
+        return components?.url
     }
-    
+}
+
+class CheckinFetcher {
     let authorizationToken: String
     
     init(authorizationToken: String) {
@@ -20,7 +35,11 @@ class CheckinFetcher {
     }
     
     func fetch(with completion:@escaping ([String:Any]) -> Void) {
-        guard let url = getCurrentUserCheckinsURL else {
+        fetch(from: nil, to: nil, withCompletion: completion)
+    }
+    
+    func fetch(from fromDate: Date?, to toDate: Date?, withCompletion completion: @escaping ([String:Any]) -> Void) {
+        guard let url = FoursquareEndpointConstructor.checkinsURL(forUserToken: authorizationToken, from: fromDate, to: toDate) else {
             assertionFailure("cannot create url")
             return
         }
