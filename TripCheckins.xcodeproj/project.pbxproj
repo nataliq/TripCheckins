@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E107743F1F3DE70F0047863A /* AllCheckinsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E107743E1F3DE70F0047863A /* AllCheckinsListController.swift */; };
+		E10774411F3DE9440047863A /* CheckinListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774401F3DE9440047863A /* CheckinListController.swift */; };
+		E10774481F3DF9A10047863A /* TripCheckinsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774471F3DF9A10047863A /* TripCheckinsListController.swift */; };
+		E107744B1F3E00710047863A /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E107744A1F3E00710047863A /* CheckinService.swift */; };
+		E107744F1F3E04930047863A /* TripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E107744E1F3E04930047863A /* TripService.swift */; };
+		E10774F91F40CF360047863A /* CheckinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774F81F40CF350047863A /* CheckinItem.swift */; };
+		E10774FB1F40CF7F0047863A /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774FA1F40CF7F0047863A /* Trip.swift */; };
+		E10774FD1F40CFF70047863A /* PredefinedTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774FC1F40CFF70047863A /* PredefinedTripService.swift */; };
+		E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */; };
+		E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */; };
 		E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E156EC511F39EB8A006AF828 /* FSOAuth.m */; };
 		E156EC551F39ECA3006AF828 /* FoursquareAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */; };
 		E156EC571F39F486006AF828 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC561F39F486006AF828 /* AppCoordinator.swift */; };
@@ -14,17 +24,16 @@
 		E16ED3641F39DB0500963177 /* FoursquareAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3631F39DB0500963177 /* FoursquareAuthorizationViewController.swift */; };
 		E16ED3691F39DB0500963177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16ED3681F39DB0500963177 /* Assets.xcassets */; };
 		E16ED36C1F39DB0500963177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E16ED36A1F39DB0500963177 /* LaunchScreen.storyboard */; };
-		E16ED3771F39DB0600963177 /* CheckinItemsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3761F39DB0600963177 /* CheckinItemsParserTests.swift */; };
-		E16ED3821F39DB0600963177 /* TripCheckinsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3811F39DB0600963177 /* TripCheckinsUITests.swift */; };
-		E1D528F11F39FF87000D52C1 /* CheckinFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F01F39FF87000D52C1 /* CheckinFetcher.swift */; };
+		E16ED3771F39DB0600963177 /* FoursquareCheckinItemParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3761F39DB0600963177 /* FoursquareCheckinItemParserTests.swift */; };
+		E1D528F11F39FF87000D52C1 /* FoursquareCheckinFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F01F39FF87000D52C1 /* FoursquareCheckinFetcher.swift */; };
 		E1D528F31F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F21F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift */; };
 		E1D528F51F3A0651000D52C1 /* UserDefaults+AuthorizationTokenKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F41F3A0651000D52C1 /* UserDefaults+AuthorizationTokenKeeper.swift */; };
 		E1D528FA1F3AF599000D52C1 /* CheckinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */; };
-		E1D528FC1F3AF684000D52C1 /* CheckinsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528FB1F3AF684000D52C1 /* CheckinsDataSource.swift */; };
+		E1D528FC1F3AF684000D52C1 /* FoursquareCheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528FB1F3AF684000D52C1 /* FoursquareCheckinService.swift */; };
 		E1D528FE1F3AFDF1000D52C1 /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528FD1F3AFDF1000D52C1 /* CheckinTableViewCell.swift */; };
 		E1D529001F3B023A000D52C1 /* CompactCheckinTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D528FF1F3B023A000D52C1 /* CompactCheckinTableViewCell.xib */; };
-		E1D529021F3B81E0000D52C1 /* CheckinItemsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */; };
-		E1D529041F3B96D8000D52C1 /* CheckinsDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */; };
+		E1D529021F3B81E0000D52C1 /* FoursquareCheckinItemParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529011F3B81DF000D52C1 /* FoursquareCheckinItemParser.swift */; };
+		E1D529041F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529031F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift */; };
 		E1D529071F3BAA7C000D52C1 /* CompactCheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */; };
 		E1D529091F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */; };
 		E1D5290B1F3BBA74000D52C1 /* CheckinListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */; };
@@ -48,6 +57,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E107743E1F3DE70F0047863A /* AllCheckinsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCheckinsListController.swift; sourceTree = "<group>"; };
+		E10774401F3DE9440047863A /* CheckinListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListController.swift; sourceTree = "<group>"; };
+		E10774471F3DF9A10047863A /* TripCheckinsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCheckinsListController.swift; sourceTree = "<group>"; };
+		E107744A1F3E00710047863A /* CheckinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
+		E107744E1F3E04930047863A /* TripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripService.swift; sourceTree = "<group>"; };
+		E10774F81F40CF350047863A /* CheckinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinItem.swift; sourceTree = "<group>"; };
+		E10774FA1F40CF7F0047863A /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		E10774FC1F40CFF70047863A /* PredefinedTripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedTripService.swift; sourceTree = "<group>"; };
+		E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCheckinsListControllerTests.swift; sourceTree = "<group>"; };
+		E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCheckinsListControllerTests.swift; sourceTree = "<group>"; };
 		E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TripCheckins-Bridging-Header.h"; sourceTree = "<group>"; };
 		E156EC511F39EB8A006AF828 /* FSOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSOAuth.m; path = "../../../../../../Downloads/foursquare-ios-oauth-master/FSOAuth.m"; sourceTree = "<group>"; };
 		E156EC521F39EB8A006AF828 /* FSOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSOAuth.h; path = "../../../../../../Downloads/foursquare-ios-oauth-master/FSOAuth.h"; sourceTree = "<group>"; };
@@ -60,20 +79,19 @@
 		E16ED36B1F39DB0500963177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E16ED36D1F39DB0600963177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E16ED3721F39DB0600963177 /* TripCheckinsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TripCheckinsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E16ED3761F39DB0600963177 /* CheckinItemsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinItemsParserTests.swift; sourceTree = "<group>"; };
+		E16ED3761F39DB0600963177 /* FoursquareCheckinItemParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinItemParserTests.swift; sourceTree = "<group>"; };
 		E16ED3781F39DB0600963177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E16ED37D1F39DB0600963177 /* TripCheckinsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TripCheckinsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E16ED3811F39DB0600963177 /* TripCheckinsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCheckinsUITests.swift; sourceTree = "<group>"; };
 		E16ED3831F39DB0600963177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1D528F01F39FF87000D52C1 /* CheckinFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinFetcher.swift; sourceTree = "<group>"; };
+		E1D528F01F39FF87000D52C1 /* FoursquareCheckinFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinFetcher.swift; sourceTree = "<group>"; };
 		E1D528F21F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTokenKeeper.swift; sourceTree = "<group>"; };
 		E1D528F41F3A0651000D52C1 /* UserDefaults+AuthorizationTokenKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+AuthorizationTokenKeeper.swift"; sourceTree = "<group>"; };
 		E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListViewController.swift; sourceTree = "<group>"; };
-		E1D528FB1F3AF684000D52C1 /* CheckinsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsDataSource.swift; sourceTree = "<group>"; };
+		E1D528FB1F3AF684000D52C1 /* FoursquareCheckinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinService.swift; sourceTree = "<group>"; };
 		E1D528FD1F3AFDF1000D52C1 /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
 		E1D528FF1F3B023A000D52C1 /* CompactCheckinTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactCheckinTableViewCell.xib; sourceTree = "<group>"; };
-		E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinItemsParser.swift; sourceTree = "<group>"; };
-		E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsDataSourceTests.swift; sourceTree = "<group>"; };
+		E1D529011F3B81DF000D52C1 /* FoursquareCheckinItemParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinItemParser.swift; sourceTree = "<group>"; };
+		E1D529031F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinServiceTests.swift; sourceTree = "<group>"; };
 		E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactCheckinCellModel.swift; sourceTree = "<group>"; };
 		E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareEndpointConstructorTests.swift; sourceTree = "<group>"; };
 		E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListViewModel.swift; sourceTree = "<group>"; };
@@ -104,6 +122,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E10774491F3E003F0047863A /* Checkin Service */ = {
+			isa = PBXGroup;
+			children = (
+				E10774F81F40CF350047863A /* CheckinItem.swift */,
+				E107744A1F3E00710047863A /* CheckinService.swift */,
+				E107744C1F3E00DC0047863A /* Foursquare */,
+			);
+			path = "Checkin Service";
+			sourceTree = "<group>";
+		};
+		E107744C1F3E00DC0047863A /* Foursquare */ = {
+			isa = PBXGroup;
+			children = (
+				E1D528FB1F3AF684000D52C1 /* FoursquareCheckinService.swift */,
+				E1D528F01F39FF87000D52C1 /* FoursquareCheckinFetcher.swift */,
+				E1D529011F3B81DF000D52C1 /* FoursquareCheckinItemParser.swift */,
+			);
+			path = Foursquare;
+			sourceTree = "<group>";
+		};
+		E107744D1F3E01060047863A /* List Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E10774401F3DE9440047863A /* CheckinListController.swift */,
+				E107743E1F3DE70F0047863A /* AllCheckinsListController.swift */,
+				E10774471F3DF9A10047863A /* TripCheckinsListController.swift */,
+			);
+			path = "List Controllers";
+			sourceTree = "<group>";
+		};
+		E10774F71F40CF1B0047863A /* Trip Service */ = {
+			isa = PBXGroup;
+			children = (
+				E10774FA1F40CF7F0047863A /* Trip.swift */,
+				E107744E1F3E04930047863A /* TripService.swift */,
+				E10774FC1F40CFF70047863A /* PredefinedTripService.swift */,
+			);
+			path = "Trip Service";
+			sourceTree = "<group>";
+		};
 		E156EC4F1F39EB6B006AF828 /* FSOAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,9 +210,11 @@
 		E16ED3751F39DB0600963177 /* TripCheckinsTests */ = {
 			isa = PBXGroup;
 			children = (
-				E16ED3761F39DB0600963177 /* CheckinItemsParserTests.swift */,
-				E1D529031F3B96D8000D52C1 /* CheckinsDataSourceTests.swift */,
+				E16ED3761F39DB0600963177 /* FoursquareCheckinItemParserTests.swift */,
+				E1D529031F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift */,
 				E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */,
+				E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */,
+				E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */,
 				E16ED3781F39DB0600963177 /* Info.plist */,
 			);
 			path = TripCheckinsTests;
@@ -163,7 +223,6 @@
 		E16ED3801F39DB0600963177 /* TripCheckinsUITests */ = {
 			isa = PBXGroup;
 			children = (
-				E16ED3811F39DB0600963177 /* TripCheckinsUITests.swift */,
 				E16ED3831F39DB0600963177 /* Info.plist */,
 			);
 			path = TripCheckinsUITests;
@@ -183,14 +242,14 @@
 		E1D529051F3BA10D000D52C1 /* Checkin List */ = {
 			isa = PBXGroup;
 			children = (
-				E1D528F01F39FF87000D52C1 /* CheckinFetcher.swift */,
-				E1D529011F3B81DF000D52C1 /* CheckinItemsParser.swift */,
-				E1D528FB1F3AF684000D52C1 /* CheckinsDataSource.swift */,
+				E10774F71F40CF1B0047863A /* Trip Service */,
+				E107744D1F3E01060047863A /* List Controllers */,
+				E10774491F3E003F0047863A /* Checkin Service */,
 				E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */,
 				E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */,
-				E1D528FD1F3AFDF1000D52C1 /* CheckinTableViewCell.swift */,
 				E1D529061F3BAA7C000D52C1 /* CompactCheckinCellModel.swift */,
 				E1D528FF1F3B023A000D52C1 /* CompactCheckinTableViewCell.xib */,
+				E1D528FD1F3AFDF1000D52C1 /* CheckinTableViewCell.swift */,
 			);
 			path = "Checkin List";
 			sourceTree = "<group>";
@@ -327,20 +386,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E107743F1F3DE70F0047863A /* AllCheckinsListController.swift in Sources */,
 				E16ED3641F39DB0500963177 /* FoursquareAuthorizationViewController.swift in Sources */,
 				E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */,
-				E1D528FC1F3AF684000D52C1 /* CheckinsDataSource.swift in Sources */,
+				E107744F1F3E04930047863A /* TripService.swift in Sources */,
+				E10774FD1F40CFF70047863A /* PredefinedTripService.swift in Sources */,
+				E1D528FC1F3AF684000D52C1 /* FoursquareCheckinService.swift in Sources */,
 				E1D528F31F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift in Sources */,
 				E1D5290B1F3BBA74000D52C1 /* CheckinListViewModel.swift in Sources */,
 				E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */,
-				E1D528F11F39FF87000D52C1 /* CheckinFetcher.swift in Sources */,
+				E1D528F11F39FF87000D52C1 /* FoursquareCheckinFetcher.swift in Sources */,
 				E1D529071F3BAA7C000D52C1 /* CompactCheckinCellModel.swift in Sources */,
 				E1D528FA1F3AF599000D52C1 /* CheckinListViewController.swift in Sources */,
+				E10774481F3DF9A10047863A /* TripCheckinsListController.swift in Sources */,
+				E10774FB1F40CF7F0047863A /* Trip.swift in Sources */,
+				E10774F91F40CF360047863A /* CheckinItem.swift in Sources */,
 				E1D528FE1F3AFDF1000D52C1 /* CheckinTableViewCell.swift in Sources */,
+				E10774411F3DE9440047863A /* CheckinListController.swift in Sources */,
+				E107744B1F3E00710047863A /* CheckinService.swift in Sources */,
 				E156EC571F39F486006AF828 /* AppCoordinator.swift in Sources */,
 				E1D528F51F3A0651000D52C1 /* UserDefaults+AuthorizationTokenKeeper.swift in Sources */,
 				E156EC551F39ECA3006AF828 /* FoursquareAuthorizer.swift in Sources */,
-				E1D529021F3B81E0000D52C1 /* CheckinItemsParser.swift in Sources */,
+				E1D529021F3B81E0000D52C1 /* FoursquareCheckinItemParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,8 +416,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D529091F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift in Sources */,
-				E1D529041F3B96D8000D52C1 /* CheckinsDataSourceTests.swift in Sources */,
-				E16ED3771F39DB0600963177 /* CheckinItemsParserTests.swift in Sources */,
+				E1D529041F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift in Sources */,
+				E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */,
+				E16ED3771F39DB0600963177 /* FoursquareCheckinItemParserTests.swift in Sources */,
+				E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +427,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E16ED3821F39DB0600963177 /* TripCheckinsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

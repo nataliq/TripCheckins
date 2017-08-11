@@ -22,10 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController()
         window.rootViewController = navigationController
         
-        let appCoordinator = AppCoordinator(navigationController: navigationController,
-                                            authorizationTokenKeeper: UserDefaults.standard)
-        appCoordinator.start()
-        self.appCoordinator = appCoordinator
+        appCoordinator = AppCoordinator(navigationController: navigationController,
+                                        authorizationTokenKeeper: UserDefaults.standard)
         
         window.makeKeyAndVisible()
         return true

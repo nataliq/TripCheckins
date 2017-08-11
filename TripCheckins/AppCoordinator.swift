@@ -8,60 +8,64 @@
 
 import UIKit
 
-class AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
+class AppCoordinator {
     
     let navigationController: UINavigationController
     let authorizationTokenKeeper: AuthorizationTokenKeeper?
     var foursquareAuthorizer: FoursquareAuthorizer?
     
-    init(navigationController: UINavigationController, authorizationTokenKeeper: AuthorizationTokenKeeper?) {
+    init(navigationController: UINavigationController, authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
         self.navigationController = navigationController
         self.authorizationTokenKeeper = authorizationTokenKeeper
-    }
-    
-    func start() {
+        
         if let token = authorizationTokenKeeper?.authorizationToken() {
             showCheckinsList(authorizationToken: token)
         } else {
-            pushAuthorizationViewController()
+            showAuthorizationViewController()
         }
     }
-    
+
     func processURL(_ url:URL) -> Bool {
         // TODO: redirect to child coordinators
-        guard url.absoluteString.contains("foursquare") else { return false }
         guard let foursquareAuthorizer = foursquareAuthorizer else { return false }
         return foursquareAuthorizer.requestAccessCode(forURL: url)
     }
     
-    // MARK: - FoursquareAuthorizationViewControllerDelegate
-    func didFinishAuthorizationFlow(_ token: String) {
-        authorizationTokenKeeper?.persistAuthorizationToken(token)
-        showCheckinsList(authorizationToken: token)
-    }
-    
     // MARK: - Private
-    private func pushAuthorizationViewController() {
+    private func showAuthorizationViewController() {
         // TODO: move to a child coordinator
-        let foursquareAuthorizer = FoursquareAuthorizer.init(clientId: "SO0SBDKGOYSZCH4JMQOEHJHMNTETYOWCURGWAZ22BPHKQDWE",
-                                                             clientSecret: "KBYTRDYUXSUULW4P4YDELCDQVF3FZ1ZKNHLJOF0MLZ2CGUMQ",
-                                                             callbackURIString: "tripcheckins://foursquare")
+        let foursquareAuthorizer = FoursquareAuthorizer()
         let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
         viewController.delegate = self
-        navigationController.pushViewController(viewController, animated: false)
+        pushViewController(viewController)
         self.foursquareAuthorizer = foursquareAuthorizer
     }
     
     private func showCheckinsList(authorizationToken token:String) {
-        // TODO: move to a child coordinator
-        let fetcher = CheckinFetcher(authorizationToken: token)
-        let dataSource = CheckinsDataSource(fetcher: fetcher, parser: CheckinItemsParser())
-        let checkinListViewModel = CheckinListViewModel(title: "All checkins",
-                                                        cellsNibName: "CompactCheckinTableViewCell",
-                                                        cellsHeight: 80)
-        let controller = CheckinListViewController(checkinsDataSource: dataSource, viewModel: checkinListViewModel)
-        
+        let checkinsService = FoursquareCheckinService(fetcher: FoursquareCheckinFetcher(authorizationToken: token), parser: FoursquareCheckinItemParser())
+//        let controller = AllCheckinsListController(checkinsService: checkinsService)
+        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
+        let viewController = CheckinListViewController(controller: controller)
+        viewController.delegate = self
+        pushViewController(viewController)
+    }
+    
+    private func pushViewController(_ viewController:UIViewController) {
         let animated = navigationController.viewControllers.count > 0
-        navigationController.pushViewController(controller, animated: animated)
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+}
+
+extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
+    func didFinishAuthorizationFlow(_ token: String) {
+        authorizationTokenKeeper?.persistAuthorizationToken(token)
+        showCheckinsList(authorizationToken: token)
+    }
+}
+
+extension AppCoordinator: CheckinListViewControllerDelegate {
+    func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
+        // TODO: implement adding
+        print("add trigerred")
     }
 }

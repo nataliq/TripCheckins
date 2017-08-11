@@ -9,9 +9,9 @@
 import XCTest
 @testable import TripCheckins
 
-class CheckinItemsParserTests: XCTestCase {
+class FoursquareCheckinItemParserTests: XCTestCase {
     
-    let parser = CheckinItemsParser()
+    let parser = FoursquareCheckinItemParser()
     let testTimestamp = Date().timeIntervalSince1970
     
     func testParsingCheckinItems() {

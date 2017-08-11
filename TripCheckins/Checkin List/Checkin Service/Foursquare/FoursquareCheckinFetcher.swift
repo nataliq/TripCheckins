@@ -30,15 +30,11 @@ class FoursquareEndpointConstructor {
     }
 }
 
-class CheckinFetcher {
+class FoursquareCheckinFetcher {
     let authorizationToken: String
     
     init(authorizationToken: String) {
         self.authorizationToken = authorizationToken
-    }
-    
-    func fetch(with completion:@escaping ([String:Any]) -> Void) {
-        fetch(from: nil, to: nil, withCompletion: completion)
     }
     
     func fetch(from fromDate: Date?, to toDate: Date?, withCompletion completion: @escaping ([String:Any]) -> Void) {
@@ -58,9 +54,7 @@ class CheckinFetcher {
                     completion([:])
                     return
                 }
-                DispatchQueue.main.async {
-                    completion(result)
-                }
+                completion(result)
             } catch  {
                 print("error trying to convert data to JSON")
                 completion([:])

@@ -8,13 +8,7 @@
 
 import Foundation
 
-struct CheckinItem {
-    let venueName: String
-    let locationName: String
-    let date: Date
-}
-
-class CheckinItemsParser {
+class FoursquareCheckinItemParser {
     
     func itemsFromJSON(_ json:[String:Any]) -> [CheckinItem] {
         
