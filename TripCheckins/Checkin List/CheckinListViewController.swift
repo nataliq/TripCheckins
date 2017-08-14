@@ -15,7 +15,7 @@ protocol CheckinListViewControllerDelegate: class {
 class CheckinListViewController: UITableViewController {
     
     private(set) var controller: CheckinListController
-    private var listViewModels: [CompactCheckinCellModel]? {
+    private var listViewModels: [CheckinListItemViewModel]? {
         didSet {
             self.tableView.reloadData()
         }
@@ -79,8 +79,7 @@ class CheckinListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! CheckinTableViewCell
-        let item = listViewModels![indexPath.row]
-        cell.configureWithVenueName(item.venueName, location: item.locationName, date: item.dateString)
+        cell.configure(withViewModel: listViewModels![indexPath.row])
         return cell
     }
 }

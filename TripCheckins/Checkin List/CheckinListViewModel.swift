@@ -11,7 +11,7 @@ import Foundation
 enum ListViewModelState {
     case loadingItems
     case error(String)
-    case loadedListItemViewModels([CompactCheckinCellModel])
+    case loadedListItemViewModels([CheckinListItemViewModel])
 }
 
 struct CheckinListViewModel {
@@ -29,7 +29,7 @@ struct CheckinListViewModel {
         }
     }
     
-    func listItemViewModel(at index:Int) -> CompactCheckinCellModel? {
+    func listItemViewModel(at index:Int) -> CheckinListItemViewModel? {
         switch state {
         case .loadedListItemViewModels(let itemsViewModels):
             return itemsViewModels[index]
@@ -39,6 +39,6 @@ struct CheckinListViewModel {
     }
     
     mutating func populateWithListItems(from checkinItems:[CheckinItem]) {
-        state = .loadedListItemViewModels(checkinItems.map( {CompactCheckinCellModel(checkinItem: $0)} ))
+        state = .loadedListItemViewModels(checkinItems.map( {CheckinListItemViewModel(checkinItem: $0)} ))
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CompactCheckinCellModel {
+struct CheckinListItemViewModel {
     let venueName: String
     let locationName: String
     let dateString: String
@@ -23,6 +23,6 @@ struct CompactCheckinCellModel {
     init(checkinItem: CheckinItem) {
         self.venueName = checkinItem.venueName
         self.locationName = checkinItem.locationName
-        self.dateString = CompactCheckinCellModel.dateFormatter.string(from: checkinItem.date)
+        self.dateString = CheckinListItemViewModel.dateFormatter.string(from: checkinItem.date)
     }
 }
