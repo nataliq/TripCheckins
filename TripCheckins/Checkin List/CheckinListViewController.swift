@@ -82,9 +82,8 @@ class CheckinListViewController: UITableViewController {
         cell.configure(withViewModel: listViewModels![indexPath.row])
         return cell
     }
-}
-
-extension CheckinListViewController {
+    
+    // MARK: - View-model configuration
     private func configureWithViewModel(_ viewModel: CheckinListViewModel) {
         title = viewModel.title
         
