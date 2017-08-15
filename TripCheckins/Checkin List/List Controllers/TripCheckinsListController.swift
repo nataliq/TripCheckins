@@ -36,9 +36,10 @@ class TripCheckinsListController: CheckinListController {
         if let trip = trip {
             loadTripCheckins(trip)
         } else {
-            tripService.loadTrip(withId: tripId, completionHandler: { (trip) in
-                self.trip = trip
-                self.reloadListItems()
+            tripService.loadTrip(withId: tripId, completionHandler: { [weak self] (trip) in
+                guard let strongSelf = self else { return }
+                strongSelf.trip = trip
+                strongSelf.reloadListItems()
                 loadTripCheckins(trip)
             })
         }
@@ -47,9 +48,11 @@ class TripCheckinsListController: CheckinListController {
     private func loadTripCheckins(_ trip:Trip) {
         self.currentListViewModel = TripCheckinsListController.loadingViewModel(withName: trip.name)
         
-        self.checkinsService.loadCheckins(after: nil, before: nil, completionHandler: { (listItems) in
-            guard self.currentListViewModel != nil else { return }
-            self.currentListViewModel?.populateWithListItems(from: listItems)
+        self.checkinsService.loadCheckins(after: nil,
+                                          before: nil,
+                                          completionHandler: { [weak self] (listItems) in
+            guard self?.currentListViewModel != nil else { return }
+            self?.currentListViewModel?.populateWithListItems(from: listItems)
         })
     }
     

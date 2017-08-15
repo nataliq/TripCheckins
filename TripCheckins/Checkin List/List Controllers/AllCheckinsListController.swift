@@ -30,9 +30,11 @@ class AllCheckinsListController: CheckinListController {
                                                     cellsNibName: "CompactCheckinTableViewCell",
                                                     cellsHeight: 80,
                                                     state: .loadingItems)
-        checkinsService.loadCheckins(after: nil, before: nil, completionHandler: { (listItems) in
-            guard self.currentListViewModel != nil else { return }
-            self.currentListViewModel?.populateWithListItems(from: listItems)
+        checkinsService.loadCheckins(after: nil,
+                                     before: nil,
+                                     completionHandler: { [weak self] (listItems) in
+            guard self?.currentListViewModel != nil else { return }
+            self?.currentListViewModel?.populateWithListItems(from: listItems)
         })
     }
 }

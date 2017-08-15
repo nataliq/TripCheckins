@@ -27,9 +27,9 @@ class CheckinListViewController: UITableViewController {
         self.controller = controller
         super.init(nibName: nil, bundle: nil)
         
-        self.controller.onViewModelUpdate = {
-            guard let listViewModel = self.controller.currentListViewModel else { return }
-            self.configureWithViewModel(listViewModel)
+        self.controller.onViewModelUpdate = { [weak self] in
+            guard let listViewModel = self?.controller.currentListViewModel else { return }
+            self?.configureWithViewModel(listViewModel)
         }
     }
     

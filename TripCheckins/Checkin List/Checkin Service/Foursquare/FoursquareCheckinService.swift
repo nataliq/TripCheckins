@@ -12,8 +12,9 @@ class FoursquareCheckinService: CheckinService {
     func loadCheckins(after fromDate: Date? = nil,
                       before toDate: Date? = nil,
                       completionHandler completion: @escaping ([CheckinItem]) -> Void) {
-        fetcher.fetch(from: fromDate, to: toDate, withCompletion: { (json) in
-            let items = self.parser.itemsFromJSON(json)
+        fetcher.fetch(from: fromDate, to: toDate, withCompletion: { [weak self] (json) in
+            guard let strongSelf = self else { return }
+            let items = strongSelf.parser.itemsFromJSON(json)
             DispatchQueue.main.async {
                 completion(items)
             }
