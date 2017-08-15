@@ -13,11 +13,18 @@ import XCTest
 class TripCheckinsListControllerTests: XCTestCase {
     
     class TestCheckinService: CheckinService {
+        var expectedLoadStartDate: Date!
+        var expectedLoadEndDate: Date!
+        
         let testItems: [CheckinItem] = [
             CheckinItem(venueName: "1", locationName: "", date: Date()),
             CheckinItem(venueName: "2", locationName: "", date: Date())
         ]
-        func loadCheckins(after fromDate: Date?, before toDate: Date?, completionHandler: @escaping ([CheckinItem]) -> Void) {
+        func loadCheckins(after fromDate: Date?,
+                          before toDate: Date?,
+                          completionHandler: @escaping ([CheckinItem]) -> Void) {
+            assert(expectedLoadStartDate == fromDate)
+            assert(expectedLoadEndDate == toDate)
             completionHandler(self.testItems)
         }
     }
@@ -40,10 +47,16 @@ class TripCheckinsListControllerTests: XCTestCase {
     let checkinService = TestCheckinService()
     let tripService = TestTripService()
     let tripId = "testTripId"
+    let testTrip = Trip(startDate: Date().addingTimeInterval(-60), endDate: Date(), name: "test trip")
     
     override func setUp() {
         super.setUp()
-        tripService.testTrips = [tripId : Trip(startDate: Date(), endDate: nil, name: "test trip")]
+        tripService.testTrips = [
+            "other": Trip(startDate: Date(), endDate: nil, name: "other trip"),
+            tripId: testTrip
+        ]
+        checkinService.expectedLoadStartDate = testTrip.startDate
+        checkinService.expectedLoadEndDate = testTrip.endDate
         listController = TripCheckinsListController(checkinsService: checkinService, tripService: tripService, tripId: tripId)
     }
     
