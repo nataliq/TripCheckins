@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum CheckinListItemViewsType {
+    case compact
+    case normal
+}
+
 enum ListViewModelState {
     case loadingItems
     case error(String)
@@ -16,8 +21,7 @@ enum ListViewModelState {
 
 struct CheckinListViewModel {
     let title: String
-    let cellsNibName: String
-    let cellsHeight: CGFloat
+    let listItemViewsType: CheckinListItemViewsType
     var state: ListViewModelState
     
     func listItemsCount() -> Int {

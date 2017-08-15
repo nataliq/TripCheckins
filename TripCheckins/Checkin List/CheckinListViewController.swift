@@ -87,9 +87,14 @@ class CheckinListViewController: UITableViewController {
     private func configureWithViewModel(_ viewModel: CheckinListViewModel) {
         title = viewModel.title
         
-        let nib = UINib(nibName: viewModel.cellsNibName, bundle: Bundle(for: self.classForCoder))
+        let nib = UINib(nibName: "CompactCheckinTableViewCell", bundle: Bundle(for: self.classForCoder))
         tableView.register(nib, forCellReuseIdentifier: "Cell")
-        tableView.rowHeight = viewModel.cellsHeight
+        switch viewModel.listItemViewsType {
+        case .compact:
+            tableView.rowHeight = 80
+        case .normal:
+            tableView.rowHeight = 120
+        }
         
         updateViewsForViewModelState(viewModel.state)
     }

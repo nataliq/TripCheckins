@@ -27,8 +27,7 @@ class AllCheckinsListController: CheckinListController {
         guard !isLoading() else { return }
         
         currentListViewModel = CheckinListViewModel(title: "All checkins",
-                                                    cellsNibName: "CompactCheckinTableViewCell",
-                                                    cellsHeight: 80,
+                                                    listItemViewsType: .compact,
                                                     state: .loadingItems)
         checkinsService.loadCheckins(after: nil,
                                      before: nil,

@@ -58,8 +58,7 @@ class TripCheckinsListController: CheckinListController {
     
     static func loadingViewModel(withName name:String) -> CheckinListViewModel {
         return CheckinListViewModel(title: name,
-                                    cellsNibName: "CompactCheckinTableViewCell",
-                                    cellsHeight: 150,
+                                    listItemViewsType: .normal,
                                     state: .loadingItems)
     }
 }
