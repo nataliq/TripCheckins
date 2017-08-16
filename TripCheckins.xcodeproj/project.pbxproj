@@ -143,14 +143,14 @@
 			path = Foursquare;
 			sourceTree = "<group>";
 		};
-		E107744D1F3E01060047863A /* List Controllers */ = {
+		E107744D1F3E01060047863A /* Checkin List Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				E10774401F3DE9440047863A /* CheckinListController.swift */,
 				E107743E1F3DE70F0047863A /* AllCheckinsListController.swift */,
 				E10774471F3DF9A10047863A /* TripCheckinsListController.swift */,
 			);
-			path = "List Controllers";
+			path = "Checkin List Controllers";
 			sourceTree = "<group>";
 		};
 		E10774F71F40CF1B0047863A /* Trip Service */ = {
@@ -243,9 +243,9 @@
 		E1D529051F3BA10D000D52C1 /* Checkin List */ = {
 			isa = PBXGroup;
 			children = (
-				E10774F71F40CF1B0047863A /* Trip Service */,
-				E107744D1F3E01060047863A /* List Controllers */,
 				E10774491F3E003F0047863A /* Checkin Service */,
+				E10774F71F40CF1B0047863A /* Trip Service */,
+				E107744D1F3E01060047863A /* Checkin List Controllers */,
 				E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */,
 				E1D5290A1F3BBA74000D52C1 /* CheckinListViewModel.swift */,
 				E1D529061F3BAA7C000D52C1 /* CheckinListItemViewModel.swift */,

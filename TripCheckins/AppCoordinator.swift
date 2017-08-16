@@ -13,6 +13,7 @@ class AppCoordinator {
     let navigationController: UINavigationController
     let authorizationTokenKeeper: AuthorizationTokenKeeper?
     var foursquareAuthorizer: FoursquareAuthorizer?
+    var allCheckinsListController: AllCheckinsListController?
     
     init(navigationController: UINavigationController, authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
         self.navigationController = navigationController
@@ -43,8 +44,9 @@ class AppCoordinator {
     
     private func showCheckinsList(authorizationToken token:String) {
         let checkinsService = FoursquareCheckinService(fetcher: FoursquareCheckinFetcher(authorizationToken: token), parser: FoursquareCheckinItemParser())
-//        let controller = AllCheckinsListController(checkinsService: checkinsService)
-        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
+        let controller = AllCheckinsListController(checkinsService: checkinsService)
+//        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
+        allCheckinsListController = controller
         let viewController = CheckinListViewController(controller: controller)
         viewController.delegate = self
         pushViewController(viewController)
@@ -66,6 +68,8 @@ extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
 extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
         // TODO: implement adding
-        print("add trigerred")
+        let dateFilter = DateFilter(startDate: Date().addingTimeInterval(-30*24*3600),
+                                    endDate: Date().addingTimeInterval(-20*24*3600))
+        allCheckinsListController?.filter(withDateFilter: dateFilter)
     }
 }
