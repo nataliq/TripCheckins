@@ -65,11 +65,26 @@ extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
     }
 }
 
+extension AppCoordinator: AddTripViewControllerDelegate {
+    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController) {
+        controller.dismiss(animated: true, completion: { [weak self] in
+            let dateFilter = DateFilter(startDate: Date().addingTimeInterval(-30*24*3600),
+                                        endDate: Date().addingTimeInterval(-20*24*3600))
+            self?.allCheckinsListController?.filter(withDateFilter: dateFilter)
+        })
+    }
+    
+    func addTripControllerDidCancel(_ controller: AddTripViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
 extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
         // TODO: implement adding
-        let dateFilter = DateFilter(startDate: Date().addingTimeInterval(-30*24*3600),
-                                    endDate: Date().addingTimeInterval(-20*24*3600))
-        allCheckinsListController?.filter(withDateFilter: dateFilter)
-    }
+        
+        let viewController = AddTripViewController()
+        let addTripNavigationController = UINavigationController(rootViewController: viewController)
+        viewController.delegate = self
+        navigationController.viewControllers.last?.present(addTripNavigationController, animated: true, completion: nil)    }
 }
