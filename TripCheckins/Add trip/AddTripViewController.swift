@@ -9,13 +9,24 @@
 import UIKit
 
 protocol AddTripViewControllerDelegate: class {
-    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController)
+    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,dateFilter filter:DateFilter)
     func addTripControllerDidCancel(_ controller: AddTripViewController)
 }
 
 class AddTripViewController: UIViewController {
 
     weak var delegate: AddTripViewControllerDelegate?
+    let dateFilterCreationView: DateFilterCreationWithTextFieldsView
+    
+    init() {
+        let dateFilter = DateFilter(startDate: Date(), endDate: nil)
+        dateFilterCreationView = DateFilterCreationWithTextFieldsView(viewModel: DateFilterViewModel(dateFilter: dateFilter))
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +40,14 @@ class AddTripViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancelButtonTapped(_:)))
+        
+        dateFilterCreationView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: 50)
+        view.addSubview(dateFilterCreationView)
     }
 
     @objc func doneButtonTapped(_ sender: Any) {
-        delegate?.addTripControllerDidTriggerAddAction(self)
+        let dateFilter = dateFilterCreationView.currentDateFilter
+        delegate?.addTripControllerDidTriggerAddAction(self, dateFilter: dateFilter)
     }
     
     @objc func cancelButtonTapped(_ sender: Any) {
