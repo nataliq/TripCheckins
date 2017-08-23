@@ -8,10 +8,19 @@
 
 import UIKit
 
-class DateFilterCreationWithTextFieldsView: UIView, UITextFieldDelegate {
+protocol DateFilterCreationView {
+    var currentDateFilter: DateFilter { get }
+}
+
+class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITextFieldDelegate {
     
     var currentDateFilter: DateFilter {
         return viewModel.dateFilter
+    }
+    
+    convenience init() {
+        let dateFilter = DateFilter(startDate: nil, endDate: nil)
+        self.init(viewModel: DateFilterViewModel(dateFilter: dateFilter))
     }
     
     init(viewModel: DateFilterViewModel) {

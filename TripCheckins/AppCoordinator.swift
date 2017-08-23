@@ -81,7 +81,8 @@ extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
         // TODO: implement adding
         
-        let viewController = AddTripViewController()
+        let dateFilterCreationView = DateFilterCreationWithTextFieldsView()
+        let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)
         let addTripNavigationController = UINavigationController(rootViewController: viewController)
         viewController.delegate = self
         navigationController.viewControllers.last?.present(addTripNavigationController, animated: true, completion: nil)    }

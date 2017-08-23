@@ -16,11 +16,10 @@ protocol AddTripViewControllerDelegate: class {
 class AddTripViewController: UIViewController {
 
     weak var delegate: AddTripViewControllerDelegate?
-    let dateFilterCreationView: DateFilterCreationWithTextFieldsView
+    let dateFilterCreationView: UIView & DateFilterCreationView
     
-    init() {
-        let dateFilter = DateFilter(startDate: Date(), endDate: nil)
-        dateFilterCreationView = DateFilterCreationWithTextFieldsView(viewModel: DateFilterViewModel(dateFilter: dateFilter))
+    init(dateFilterCreationView: UIView & DateFilterCreationView) {
+        self.dateFilterCreationView = dateFilterCreationView
         super.init(nibName: nil, bundle: nil)
     }
     
