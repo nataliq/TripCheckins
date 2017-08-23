@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateFilterCreationWithTextFieldsView: UIView {
+class DateFilterCreationWithTextFieldsView: UIView, UITextFieldDelegate {
     
     var currentDateFilter: DateFilter {
         return viewModel.dateFilter
@@ -19,13 +19,19 @@ class DateFilterCreationWithTextFieldsView: UIView {
         super.init(frame: .zero)
         
         startDateTextField.inputView = startDatePicker
+        startDateTextField.delegate = self
         addSubview(startDateTextField)
         
         endDateTextField.inputView = endDatePicker
+        endDateTextField.delegate = self
         addSubview(endDateTextField)
         
         addLayoutConstraints()
         syncViewWithViewModel()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var viewModel: DateFilterViewModel {
@@ -61,6 +67,7 @@ class DateFilterCreationWithTextFieldsView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .lightGray
         textField.placeholder = "from:"
+        textField.clearButtonMode = .always
         return textField
     }()
     
@@ -75,6 +82,7 @@ class DateFilterCreationWithTextFieldsView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .lightGray
         textField.placeholder = "to:"
+        textField.clearButtonMode = .always
         return textField
     }()
     
@@ -104,8 +112,13 @@ class DateFilterCreationWithTextFieldsView: UIView {
         )
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField === startDateTextField {
+            viewModel.updateStartDate(nil)
+        } else if textField === endDateTextField {
+            viewModel.updateEndDate(nil)
+        }
+        return true
     }
-    
 }

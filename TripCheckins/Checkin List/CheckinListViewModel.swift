@@ -22,7 +22,7 @@ enum ListViewModelState {
 struct CheckinListViewModel {
     let title: String
     let listItemViewsType: CheckinListItemViewsType
-    let state: ListViewModelState
+    var state: ListViewModelState
     
     func listItemsCount() -> Int {
         switch state {
@@ -40,5 +40,9 @@ struct CheckinListViewModel {
         default:
             return nil
         }
+    }
+    
+    mutating func populateWithListItems(from checkinItems:[CheckinItem]) {
+        state = .loadedListItemViewModels(checkinItems.map( {CheckinListItemViewModel(checkinItem: $0)} ))
     }
 }

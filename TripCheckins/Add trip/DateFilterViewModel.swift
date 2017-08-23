@@ -72,7 +72,12 @@ struct DateFilterViewModel {
     }
     
     
-    mutating func updateStartDate(_ startDate:Date) {
+    mutating func updateStartDate(_ startDate: Date?) {
+        guard let startDate = startDate else {
+            dateFilter = DateFilter(startDate: nil, endDate: dateFilter.endDate)
+            return
+        }
+        
         guard startDate <= maximumStartDate else { return }
         var isEndDateValid = true
         if let endDate = dateFilter.endDate {
@@ -82,7 +87,12 @@ struct DateFilterViewModel {
         dateFilter = DateFilter(startDate: startDate, endDate: isEndDateValid ? dateFilter.endDate : nil)
     }
     
-    mutating func updateEndDate(_ endDate:Date) {
+    mutating func updateEndDate(_ endDate: Date?) {
+        guard let endDate = endDate else {
+            dateFilter = DateFilter(startDate: dateFilter.startDate, endDate: nil)
+            return
+        }
+        
         guard endDate <= maximumEndDate else { return }
         var isStartDateValid = true
         if let startDate = dateFilter.startDate {

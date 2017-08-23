@@ -50,7 +50,7 @@ class TripCheckinsListController: CheckinListController {
         
         self.checkinsService.loadCheckins(after: trip.startDate, before: trip.endDate, completionHandler: { [weak self] (listItems) in
             guard self?.currentListViewModel != nil else { return }
-//            self?.currentListViewModel?.populateWithListItems(from: listItems)
+            self?.currentListViewModel?.populateWithListItems(from: listItems)
         })
     }
     
