@@ -10,7 +10,12 @@ import Foundation
 
 struct DateFilterViewModel {
     
-    init(dateFilter: DateFilter) {
+    init() {
+        self.init(maximumEndDate: Date(), dateFilter: DateFilter(startDate: nil, endDate: nil))
+    }
+    
+    init(maximumEndDate: Date, dateFilter: DateFilter) {
+        self.maximumEndDate = maximumEndDate
         self.dateFilter = dateFilter
         self.maximumStartDate = DateFilterViewModel.calculateMaximumStartDate(dateFilterEndDate: dateFilter.endDate,
                                                                               maximumEndDate: maximumEndDate)
@@ -34,26 +39,8 @@ struct DateFilterViewModel {
         }
     }
     
-    let maximumEndDate = Date()
+    let maximumEndDate: Date
     private(set) var maximumStartDate: Date
-    
-    static private func calculateMaximumStartDate(dateFilterEndDate: Date?, maximumEndDate: Date) -> Date {
-        var components = DateComponents()
-        components.day = -1
-        
-        if let endDate = dateFilterEndDate {
-            return Calendar.current.date(byAdding: components, to: endDate)!
-        } else {
-            return Calendar.current.date(byAdding: components, to: maximumEndDate)!
-        }
-    }
-    
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
     
     var startDateString: String? {
         if let startDate = dateFilter.startDate {
@@ -70,7 +57,6 @@ struct DateFilterViewModel {
             return nil
         }
     }
-    
     
     mutating func updateStartDate(_ startDate: Date?) {
         guard let startDate = startDate else {
@@ -100,4 +86,23 @@ struct DateFilterViewModel {
         }
         dateFilter = DateFilter(startDate: isStartDateValid ? dateFilter.startDate : nil, endDate: endDate)
     }
+    
+    // MARK: - Private
+    static private func calculateMaximumStartDate(dateFilterEndDate: Date?, maximumEndDate: Date) -> Date {
+        var components = DateComponents()
+        components.day = -1
+        
+        if let endDate = dateFilterEndDate {
+            return Calendar.current.date(byAdding: components, to: endDate)!
+        } else {
+            return Calendar.current.date(byAdding: components, to: maximumEndDate)!
+        }
+    }
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }

@@ -19,8 +19,7 @@ class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITe
     }
     
     convenience init() {
-        let dateFilter = DateFilter(startDate: nil, endDate: nil)
-        self.init(viewModel: DateFilterViewModel(dateFilter: dateFilter))
+        self.init(viewModel: DateFilterViewModel())
     }
     
     init(viewModel: DateFilterViewModel) {

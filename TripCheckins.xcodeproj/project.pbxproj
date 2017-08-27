@@ -22,6 +22,7 @@
 		E14559801F45D9FF0008E0ED /* DateFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597F1F45D9FF0008E0ED /* DateFilterViewModel.swift */; };
 		E14559831F45E2BB0008E0ED /* DateFiltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559821F45E2BB0008E0ED /* DateFiltering.swift */; };
 		E14559851F45E2C60008E0ED /* DateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559841F45E2C60008E0ED /* DateFilter.swift */; };
+		E14559871F4DCF4E0008E0ED /* DateFilterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */; };
 		E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E156EC511F39EB8A006AF828 /* FSOAuth.m */; };
 		E156EC551F39ECA3006AF828 /* FoursquareAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */; };
 		E156EC571F39F486006AF828 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC561F39F486006AF828 /* AppCoordinator.swift */; };
@@ -78,6 +79,7 @@
 		E145597F1F45D9FF0008E0ED /* DateFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterViewModel.swift; sourceTree = "<group>"; };
 		E14559821F45E2BB0008E0ED /* DateFiltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFiltering.swift; sourceTree = "<group>"; };
 		E14559841F45E2C60008E0ED /* DateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilter.swift; sourceTree = "<group>"; };
+		E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterViewModelTests.swift; sourceTree = "<group>"; };
 		E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TripCheckins-Bridging-Header.h"; sourceTree = "<group>"; };
 		E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareAuthorizer.swift; sourceTree = "<group>"; };
 		E156EC561F39F486006AF828 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */,
 				E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */,
 				E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */,
+				E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */,
 				E16ED3781F39DB0600963177 /* Info.plist */,
 			);
 			path = TripCheckinsTests;
@@ -456,6 +459,7 @@
 				E1D529041F3B96D8000D52C1 /* FoursquareCheckinServiceTests.swift in Sources */,
 				E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */,
 				E16ED3771F39DB0600963177 /* FoursquareCheckinItemParserTests.swift in Sources */,
+				E14559871F4DCF4E0008E0ED /* DateFilterViewModelTests.swift in Sources */,
 				E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
