@@ -59,7 +59,7 @@ class DateFilterViewModelTests: XCTestCase {
         
         let components = NSCalendar.current.dateComponents([.day],
                                                            from: viewModel.dateFilter.startDate!,
-                                                           to: viewModel.maximumEndDate)
+                                                           to: testEndDate)
         XCTAssertEqual(components.day, 1)
     }
     
@@ -104,6 +104,21 @@ class DateFilterViewModelTests: XCTestCase {
         XCTAssertNotNil(viewModel.endDateString)
     }
     
+    func testUpdatingEndDateWithNil() {
+        let maximumEndDate = Date()
+        let testEndDate = maximumEndDate.addingTimeInterval(-2*24*3600)
+        let testStartDate = testEndDate.addingTimeInterval(-4*24*3600)
+        let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
+        
+        var viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        viewModel.updateEndDate(nil)
+        
+        XCTAssertNotNil(viewModel.dateFilter.startDate)
+        XCTAssertNil(viewModel.dateFilter.endDate)
+        XCTAssertNotNil(viewModel.startDateString)
+        XCTAssertNil(viewModel.endDateString)
+    }
+    
     func testUpdatingStartDateWithValidDate() {
         var viewModel = DateFilterViewModel()
         let updatedTestStartDate = viewModel.maximumEndDate.addingTimeInterval(-2*24*3600)
@@ -113,6 +128,21 @@ class DateFilterViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.dateFilter.endDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
+    }
+    
+    func testUpdatingStartDateWithNil() {
+        let maximumEndDate = Date()
+        let testEndDate = maximumEndDate.addingTimeInterval(-2*24*3600)
+        let testStartDate = testEndDate.addingTimeInterval(-4*24*3600)
+        let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
+        
+        var viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        viewModel.updateStartDate(nil)
+        
+        XCTAssertNil(viewModel.dateFilter.startDate)
+        XCTAssertNotNil(viewModel.dateFilter.endDate)
+        XCTAssertNil(viewModel.startDateString)
+        XCTAssertNotNil(viewModel.endDateString)
     }
     
     func testUpdatingEndDateWithNotValidDate() {
