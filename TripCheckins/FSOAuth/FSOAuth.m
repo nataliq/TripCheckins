@@ -138,7 +138,7 @@
             return FSOAuthStatusErrorFoursquareOAuthNotSupported;
         }
         
-        [sharedApplication openURL:authURL];
+        [sharedApplication openURL:authURL options:@{} completionHandler:nil];
     }
     
     return FSOAuthStatusSuccess;
@@ -250,7 +250,9 @@
     else
 #endif
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFoursquareAppStoreURL]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFoursquareAppStoreURL]
+                                           options:@{}
+                                 completionHandler:nil];
     }
 }
 
