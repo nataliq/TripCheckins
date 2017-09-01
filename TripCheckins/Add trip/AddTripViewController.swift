@@ -18,6 +18,14 @@ class AddTripViewController: UIViewController {
     weak var delegate: AddTripViewControllerDelegate?
     let dateFilterCreationView: UIView & DateFilterCreationView
     
+    var doneButton: UIBarButtonItem? {
+        return navigationItem.rightBarButtonItem
+    }
+    
+    var cancelButton: UIBarButtonItem? {
+        return navigationItem.leftBarButtonItem
+    }
+    
     init(dateFilterCreationView: UIView & DateFilterCreationView) {
         self.dateFilterCreationView = dateFilterCreationView
         super.init(nibName: nil, bundle: nil)
