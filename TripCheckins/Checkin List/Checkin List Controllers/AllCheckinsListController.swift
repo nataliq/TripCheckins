@@ -34,7 +34,7 @@ class AllCheckinsListController: CheckinListController {
     func reloadListItems() {
         guard !isLoading() else { return }
         
-        currentListViewModel = AllCheckinsListController.viewModelWithState(.loadingItems(currentDateFilter), filtered: currentDateFilter != nil)
+        currentListViewModel = AllCheckinsListController.viewModelWithState(.loadingItems, filtered: currentDateFilter != nil)
         checkinsService.loadCheckins(after: currentDateFilter?.startDate, before: currentDateFilter?.endDate, completionHandler: { [weak self] (listItems) in
             guard self?.currentListViewModel != nil else { return }
             self?.currentListItems = listItems

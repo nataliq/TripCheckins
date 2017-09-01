@@ -14,7 +14,7 @@ enum CheckinListItemViewsType {
 }
 
 enum ListViewModelState {
-    case loadingItems(DateFilter?)
+    case loadingItems
     case error(String)
     case loadedListItemViewModels([CheckinListItemViewModel])
 }

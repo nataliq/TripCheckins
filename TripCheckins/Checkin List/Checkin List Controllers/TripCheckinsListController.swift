@@ -57,6 +57,6 @@ class TripCheckinsListController: CheckinListController {
     static func loadingViewModel(withName name:String) -> CheckinListViewModel {
         return CheckinListViewModel(title: name,
                                     listItemViewsType: .normal,
-                                    state: .loadingItems(nil))
+                                    state: .loadingItems)
     }
 }
