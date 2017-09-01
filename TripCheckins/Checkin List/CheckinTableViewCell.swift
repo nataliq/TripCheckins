@@ -10,14 +10,21 @@ import UIKit
 
 class CheckinTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var venueNameLabel: UILabel!
-    @IBOutlet weak var locationNameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet private weak var venueNameLabel: UILabel!
+    @IBOutlet private weak var locationNameLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
     
-    func configureWithVenueName(_ venueName: String, location locationName: String, date dateString: String) {
+    func configure(withVenueName venueName: String, location locationName: String, date dateString: String) {
         venueNameLabel.text = venueName
         locationNameLabel.text = locationName
         dateLabel.text = dateString
     }
+}
 
+extension CheckinTableViewCell {
+    func configure(withViewModel viewModel:CheckinListItemViewModel) {
+        configure(withVenueName: viewModel.venueName,
+                  location: viewModel.locationName,
+                  date: viewModel.dateString)
+    }
 }

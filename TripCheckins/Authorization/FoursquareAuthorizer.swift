@@ -14,16 +14,11 @@ protocol FoursquareAuthorizerDelegate: class {
 
 final class FoursquareAuthorizer {
     
-    let clientId: String
-    let clientSecret: String
-    let callbackURIString: String
-    weak var delegate: FoursquareAuthorizerDelegate?
+    private let clientId = "SO0SBDKGOYSZCH4JMQOEHJHMNTETYOWCURGWAZ22BPHKQDWE"
+    private let clientSecret = "KBYTRDYUXSUULW4P4YDELCDQVF3FZ1ZKNHLJOF0MLZ2CGUMQ"
+    private let callbackURIString = "tripcheckins://foursquare"
     
-    init(clientId: String, clientSecret: String, callbackURIString: String) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.callbackURIString = callbackURIString
-    }
+    weak var delegate: FoursquareAuthorizerDelegate?
     
     func presentConnectUI(withPresenter presenter:UIViewController) -> (success: Bool, message: String?) {
         let statuscode: FSOAuthStatusCode = FSOAuth.shared().authorizeUser(usingClientId:clientId,
@@ -35,6 +30,7 @@ final class FoursquareAuthorizer {
     }
     
     func requestAccessCode(forURL url:URL) -> Bool {
+        guard url.absoluteString.contains("foursquare") else { return false }
         var errorCode: FSOAuthErrorCode = FSOAuthErrorCode.none
         
         let accessCode = FSOAuth.shared().accessCode(forFSOAuthURL: url, error: &errorCode)
