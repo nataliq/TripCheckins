@@ -8,13 +8,49 @@
 
 import Foundation
 
-struct DateFilterViewModel {
-    
-    init() {
+public struct DateFilterViewModel {
+
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+
+    private(set) var dateFilter: DateFilter {
+        didSet {
+            maximumStartDate = DateFilterViewModel.calculateMaximumStartDate(dateFilterEndDate: dateFilter.endDate,
+                                                                             maximumEndDate: maximumEndDate)
+        }
+    }
+
+    let maximumEndDate: Date
+    private(set) var maximumStartDate: Date
+
+    var startDateString: String? {
+        // TODO: Consolidate with endDateString
+        if let startDate = dateFilter.startDate {
+            return dateFormatter.string(from: startDate)
+        } else {
+            return nil
+        }
+    }
+
+    var endDateString: String? {
+        if let endDate = dateFilter.endDate {
+            return dateFormatter.string(from: endDate)
+        } else {
+            return nil
+        }
+    }
+
+    // MARK: Lifecycle
+
+    public init() {
         self.init(maximumEndDate: Date(), dateFilter: DateFilter(startDate: nil, endDate: nil))
     }
     
-    init(maximumEndDate: Date, dateFilter: DateFilter) {
+    public init(maximumEndDate: Date, dateFilter: DateFilter) {
         self.maximumEndDate = maximumEndDate
         self.dateFilter = dateFilter
         self.maximumStartDate = DateFilterViewModel.calculateMaximumStartDate(dateFilterEndDate: dateFilter.endDate,
@@ -31,34 +67,10 @@ struct DateFilterViewModel {
             }
         }
     }
-    
-    private(set) var dateFilter: DateFilter {
-        didSet {
-            maximumStartDate = DateFilterViewModel.calculateMaximumStartDate(dateFilterEndDate: dateFilter.endDate,
-                                                                             maximumEndDate: maximumEndDate)
-        }
-    }
-    
-    let maximumEndDate: Date
-    private(set) var maximumStartDate: Date
-    
-    var startDateString: String? {
-        if let startDate = dateFilter.startDate {
-            return dateFormatter.string(from: startDate)
-        } else {
-            return nil
-        }
-    }
-    
-    var endDateString: String? {
-        if let endDate = dateFilter.endDate {
-            return dateFormatter.string(from: endDate)
-        } else {
-            return nil
-        }
-    }
-    
-    mutating func updateStartDate(_ startDate: Date?) {
+
+    // MARK: Updating
+
+    public mutating func updateStartDate(_ startDate: Date?) {
         guard let startDate = startDate else {
             dateFilter = DateFilter(startDate: nil, endDate: dateFilter.endDate)
             return
@@ -73,7 +85,7 @@ struct DateFilterViewModel {
         dateFilter = DateFilter(startDate: startDate, endDate: isEndDateValid ? dateFilter.endDate : nil)
     }
     
-    mutating func updateEndDate(_ endDate: Date?) {
+    public mutating func updateEndDate(_ endDate: Date?) {
         guard let endDate = endDate else {
             dateFilter = DateFilter(startDate: dateFilter.startDate, endDate: nil)
             return
@@ -99,10 +111,4 @@ struct DateFilterViewModel {
         }
     }
     
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
 }

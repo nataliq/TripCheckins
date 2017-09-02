@@ -19,8 +19,7 @@ class AllCheckinsListController: CheckinListController {
     
     private(set) var currentListViewModel: CheckinListViewModel? {
         didSet {
-            guard let updateClosure = onViewModelUpdate else { return }
-            updateClosure()
+            onViewModelUpdate?()
         }
     }
     

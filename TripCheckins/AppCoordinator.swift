@@ -26,15 +26,14 @@ class AppCoordinator {
         }
     }
 
+    // TODO: Change name.
     func processURL(_ url:URL) -> Bool {
-        // TODO: redirect to child coordinators
         guard let foursquareAuthorizer = foursquareAuthorizer else { return false }
         return foursquareAuthorizer.requestAccessCode(forURL: url)
     }
     
     // MARK: - Private
     private func showAuthorizationViewController() {
-        // TODO: move to a child coordinator
         let foursquareAuthorizer = FoursquareAuthorizer()
         let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
         viewController.delegate = self
@@ -79,7 +78,7 @@ extension AppCoordinator: AddTripViewControllerDelegate {
 
 extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
-        // TODO: implement adding
+        // TODO: implement saving
         
         let dateFilterCreationView = DateFilterCreationWithTextFieldsView()
         let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DateFilter {
+public struct DateFilter {
     let startDate: Date?
     let endDate: Date?
     
