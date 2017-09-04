@@ -9,24 +9,17 @@
 import UIKit
 
 protocol AddTripViewControllerDelegate: class {
-    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,dateFilter filter:DateFilter)
+    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,
+                                              dateFilter filter:DateFilter)
     func addTripControllerDidCancel(_ controller: AddTripViewController)
 }
 
 class AddTripViewController: UIViewController {
 
     weak var delegate: AddTripViewControllerDelegate?
-    let dateFilterCreationView: UIView & DateFilterCreationView
+    let dateFilterCreationView: UIView & DateFilterProvider
     
-    var doneButton: UIBarButtonItem? {
-        return navigationItem.rightBarButtonItem
-    }
-    
-    var cancelButton: UIBarButtonItem? {
-        return navigationItem.leftBarButtonItem
-    }
-    
-    init(dateFilterCreationView: UIView & DateFilterCreationView) {
+    init(dateFilterCreationView: UIView & DateFilterProvider) {
         self.dateFilterCreationView = dateFilterCreationView
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,7 +31,7 @@ class AddTripViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.appMainBackgroundColor()
         title = "Add trip"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
@@ -47,11 +40,15 @@ class AddTripViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancelButtonTapped(_:)))
-        
-        dateFilterCreationView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: 50)
         view.addSubview(dateFilterCreationView)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        dateFilterCreationView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: 50)
+    }
 
+    // MARK: Actions
     @objc func doneButtonTapped(_ sender: Any) {
         let dateFilter = dateFilterCreationView.currentDateFilter
         delegate?.addTripControllerDidTriggerAddAction(self, dateFilter: dateFilter)

@@ -9,15 +9,15 @@
 import XCTest
 @testable import TripCheckins
 
-class DateFilterViewModelTests: XCTestCase {
+class AddTripDateFilterViewModelTests: XCTestCase {
     
     func testThatMaximumEndDateIsAutomaticallySet() {
-        let viewModel = DateFilterViewModel()
+        let viewModel = AddTripDateFilterViewModel()
         XCTAssertNotNil(viewModel.maximumEndDate)
     }
     
     func testThatMaximumStartDateIsOneDayBeforeMaximumEndDate() {
-        let viewModel = DateFilterViewModel()
+        let viewModel = AddTripDateFilterViewModel()
         let components = NSCalendar.current.dateComponents([.day],
                                                            from: viewModel.maximumStartDate,
                                                            to: viewModel.maximumEndDate)
@@ -25,9 +25,9 @@ class DateFilterViewModelTests: XCTestCase {
     }
     
     func testThatDateFilterDatesAreInitiallyNil() {
-        let viewModel = DateFilterViewModel()
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertNil(viewModel.dateFilter.endDate)
+        let viewModel = AddTripDateFilterViewModel()
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertNil(viewModel.currentDateFilter.endDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
     }
@@ -38,9 +38,10 @@ class DateFilterViewModelTests: XCTestCase {
         let testStartDate = testEndDate.addingTimeInterval(-4*24*3600)
         let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
         
-        let viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
-        XCTAssertEqual(viewModel.dateFilter.startDate, testStartDate)
-        XCTAssertEqual(viewModel.dateFilter.endDate, testEndDate)
+        let viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
+        XCTAssertEqual(viewModel.currentDateFilter.startDate, testStartDate)
+        XCTAssertEqual(viewModel.currentDateFilter.endDate, testEndDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
     }
@@ -51,14 +52,15 @@ class DateFilterViewModelTests: XCTestCase {
         let testStartDate = testEndDate.addingTimeInterval(-1)
         let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
         
-        let viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
-        XCTAssertNotEqual(viewModel.dateFilter.startDate, testStartDate)
-        XCTAssertEqual(viewModel.dateFilter.endDate, testEndDate)
+        let viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
+        XCTAssertNotEqual(viewModel.currentDateFilter.startDate, testStartDate)
+        XCTAssertEqual(viewModel.currentDateFilter.endDate, testEndDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
         
         let components = NSCalendar.current.dateComponents([.day],
-                                                           from: viewModel.dateFilter.startDate!,
+                                                           from: viewModel.currentDateFilter.startDate!,
                                                            to: testEndDate)
         XCTAssertEqual(components.day, 1)
     }
@@ -66,7 +68,8 @@ class DateFilterViewModelTests: XCTestCase {
     func testThatMaximumEndDateIsEqualToTheOneProvided() {
         let maximumEndDate = Date()
         let testDateFilter = DateFilter(startDate: nil, endDate: nil)
-        let viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        let viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
         XCTAssertEqual(viewModel.maximumEndDate, maximumEndDate)
     }
     
@@ -74,7 +77,8 @@ class DateFilterViewModelTests: XCTestCase {
         let maximumEndDate = Date()
         let testEndDate = maximumEndDate.addingTimeInterval(-2*24*3600)
         let testDateFilter = DateFilter(startDate: nil, endDate: testEndDate)
-        let viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        let viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
         
         let components = NSCalendar.current.dateComponents([.day],
                                                            from: viewModel.maximumStartDate,
@@ -83,7 +87,7 @@ class DateFilterViewModelTests: XCTestCase {
     }
     
     func testThatMaximumStartDateIsOneDayBeforeUpdatedDateFilterEndDate() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let testEndDate = Date().addingTimeInterval(-2*24*3600)
         viewModel.updateEndDate(testEndDate)
         
@@ -94,12 +98,12 @@ class DateFilterViewModelTests: XCTestCase {
     }
     
     func testUpdatingEndDateWithValidDate() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestEndDate = viewModel.maximumEndDate.addingTimeInterval(-2*24*3600)
         viewModel.updateEndDate(updatedTestEndDate)
         
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertEqual(viewModel.dateFilter.endDate, updatedTestEndDate)
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertEqual(viewModel.currentDateFilter.endDate, updatedTestEndDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
     }
@@ -110,22 +114,23 @@ class DateFilterViewModelTests: XCTestCase {
         let testStartDate = testEndDate.addingTimeInterval(-4*24*3600)
         let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
         
-        var viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        var viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
         viewModel.updateEndDate(nil)
         
-        XCTAssertNotNil(viewModel.dateFilter.startDate)
-        XCTAssertNil(viewModel.dateFilter.endDate)
+        XCTAssertNotNil(viewModel.currentDateFilter.startDate)
+        XCTAssertNil(viewModel.currentDateFilter.endDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
     }
     
     func testUpdatingStartDateWithValidDate() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestStartDate = viewModel.maximumEndDate.addingTimeInterval(-2*24*3600)
         viewModel.updateStartDate(updatedTestStartDate)
         
-        XCTAssertEqual(viewModel.dateFilter.startDate, updatedTestStartDate)
-        XCTAssertNil(viewModel.dateFilter.endDate)
+        XCTAssertEqual(viewModel.currentDateFilter.startDate, updatedTestStartDate)
+        XCTAssertNil(viewModel.currentDateFilter.endDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
     }
@@ -136,60 +141,61 @@ class DateFilterViewModelTests: XCTestCase {
         let testStartDate = testEndDate.addingTimeInterval(-4*24*3600)
         let testDateFilter = DateFilter(startDate: testStartDate, endDate: testEndDate)
         
-        var viewModel = DateFilterViewModel(maximumEndDate: maximumEndDate, dateFilter: testDateFilter)
+        var viewModel = AddTripDateFilterViewModel(maximumEndDate: maximumEndDate,
+                                                   currentDateFilter: testDateFilter)
         viewModel.updateStartDate(nil)
         
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertNotNil(viewModel.dateFilter.endDate)
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertNotNil(viewModel.currentDateFilter.endDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
     }
     
     func testUpdatingEndDateWithNotValidDate() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestEndDate = viewModel.maximumEndDate.addingTimeInterval(2*24*3600)
         viewModel.updateEndDate(updatedTestEndDate)
         
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertNil(viewModel.dateFilter.endDate)
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertNil(viewModel.currentDateFilter.endDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
     }
     
     func testUpdatingStartDateWithNotValidDate() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestStartDate = viewModel.maximumEndDate.addingTimeInterval(2*24*3600)
         viewModel.updateStartDate(updatedTestStartDate)
         
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertNil(viewModel.dateFilter.endDate)
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertNil(viewModel.currentDateFilter.endDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNil(viewModel.endDateString)
     }
     
     func testUpdatingStartAndEndDatesWithValidDates() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestStartDate = viewModel.maximumEndDate.addingTimeInterval(-4*24*3600)
         viewModel.updateStartDate(updatedTestStartDate)
         let updatedTestEndDate = viewModel.maximumEndDate.addingTimeInterval(-2*24*3600)
         viewModel.updateEndDate(updatedTestEndDate)
         
-        XCTAssertEqual(viewModel.dateFilter.startDate, updatedTestStartDate)
-        XCTAssertEqual(viewModel.dateFilter.endDate, updatedTestEndDate)
+        XCTAssertEqual(viewModel.currentDateFilter.startDate, updatedTestStartDate)
+        XCTAssertEqual(viewModel.currentDateFilter.endDate, updatedTestEndDate)
         XCTAssertNotNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
         XCTAssertNotNil(viewModel.maximumEndDate)
     }
     
     func testThatUpdatingEndDateWithDateBeforeCurrentStartDateSetsStartDateToNil() {
-        var viewModel = DateFilterViewModel()
+        var viewModel = AddTripDateFilterViewModel()
         let updatedTestStartDate = viewModel.maximumEndDate.addingTimeInterval(-2*24*3600)
         viewModel.updateStartDate(updatedTestStartDate)
         let updatedTestEndDate = viewModel.maximumEndDate.addingTimeInterval(-4*24*3600)
         viewModel.updateEndDate(updatedTestEndDate)
         
-        XCTAssertNil(viewModel.dateFilter.startDate)
-        XCTAssertEqual(viewModel.dateFilter.endDate, updatedTestEndDate)
+        XCTAssertNil(viewModel.currentDateFilter.startDate)
+        XCTAssertEqual(viewModel.currentDateFilter.endDate, updatedTestEndDate)
         XCTAssertNil(viewModel.startDateString)
         XCTAssertNotNil(viewModel.endDateString)
         XCTAssertNotNil(viewModel.maximumEndDate)

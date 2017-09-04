@@ -24,6 +24,11 @@ class FoursquareCheckinService: CheckinService {
     let fetcher: FoursquareCheckinFetcher
     let parser: FoursquareCheckinItemParser
     
+    convenience init(authorizationToken: String) {
+        self.init(fetcher: FoursquareCheckinFetcher(authorizationToken: authorizationToken),
+                  parser: FoursquareCheckinItemParser())
+    }
+    
     init(fetcher: FoursquareCheckinFetcher, parser: FoursquareCheckinItemParser) {
         self.fetcher = fetcher
         self.parser = parser

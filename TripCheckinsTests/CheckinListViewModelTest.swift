@@ -34,7 +34,7 @@ class CheckinListViewModelTest: XCTestCase {
     }
     
     func testListItemsWhenStateIsLoadedItems() {
-        let checkinItem = CheckinItem(venueName: "test", locationName: "test", date: Date())
+        let checkinItem = CheckinItem(venueName: "test", city: "", country: "", date: Date(), dateTimeZoneOffset: 0)
         let listViewModel = CheckinListItemViewModel(checkinItem: checkinItem)
         let viewModel = CheckinListViewModel(title: "test",
                                              listItemViewsType: .normal,

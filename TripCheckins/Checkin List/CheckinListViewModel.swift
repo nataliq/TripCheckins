@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct CheckinListViewModel {
+    let title: String
+    let listItemViewsType: CheckinListItemViewsType
+    let state: ListViewModelState
+}
+
 enum CheckinListItemViewsType {
     case compact
     case normal
@@ -19,11 +25,7 @@ enum ListViewModelState {
     case loadedListItemViewModels([CheckinListItemViewModel])
 }
 
-struct CheckinListViewModel {
-    let title: String
-    let listItemViewsType: CheckinListItemViewsType
-    var state: ListViewModelState
-    
+extension CheckinListViewModel {
     func listItemsCount() -> Int {
         switch state {
         case .loadedListItemViewModels(let itemsViewModels):
@@ -40,9 +42,5 @@ struct CheckinListViewModel {
         default:
             return nil
         }
-    }
-    
-    mutating func populateWithListItems(from checkinItems:[CheckinItem]) {
-        state = .loadedListItemViewModels(checkinItems.map( {CheckinListItemViewModel(checkinItem: $0)} ))
     }
 }

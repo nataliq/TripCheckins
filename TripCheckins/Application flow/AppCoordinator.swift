@@ -13,9 +13,9 @@ class AppCoordinator {
     let navigationController: UINavigationController
     let authorizationTokenKeeper: AuthorizationTokenKeeper?
     var foursquareAuthorizer: FoursquareAuthorizer?
-    var allCheckinsListController: AllCheckinsListController?
     
-    init(navigationController: UINavigationController, authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
+    init(navigationController: UINavigationController,
+         authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
         self.navigationController = navigationController
         self.authorizationTokenKeeper = authorizationTokenKeeper
         
@@ -26,8 +26,7 @@ class AppCoordinator {
         }
     }
 
-    // TODO: Change name.
-    func processURL(_ url:URL) -> Bool {
+    func openURL(_ url:URL) -> Bool {
         guard let foursquareAuthorizer = foursquareAuthorizer else { return false }
         return foursquareAuthorizer.requestAccessCode(forURL: url)
     }
@@ -42,10 +41,8 @@ class AppCoordinator {
     }
     
     private func showCheckinsList(authorizationToken token:String) {
-        let checkinsService = FoursquareCheckinService(fetcher: FoursquareCheckinFetcher(authorizationToken: token), parser: FoursquareCheckinItemParser())
+        let checkinsService = FoursquareCheckinService(authorizationToken: token)
         let controller = AllCheckinsListController(checkinsService: checkinsService)
-//        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
-        allCheckinsListController = controller
         let viewController = CheckinListViewController(controller: controller)
         viewController.delegate = self
         pushViewController(viewController)
@@ -65,9 +62,13 @@ extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
 }
 
 extension AppCoordinator: AddTripViewControllerDelegate {
-    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController, dateFilter filter: DateFilter) {
+    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,
+                                              dateFilter filter: DateFilter) {
         controller.dismiss(animated: true, completion: { [weak self] in
-            self?.allCheckinsListController?.filter(withDateFilter: filter)
+            // TODO: implement saving
+            if let dateFilteringViewController = self?.navigationController.topViewController as? DateFiltering {
+                dateFilteringViewController.filter(withDateFilter: filter)
+            }
         })
     }
     
@@ -78,11 +79,14 @@ extension AppCoordinator: AddTripViewControllerDelegate {
 
 extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
-        // TODO: implement saving
-        
-        let dateFilterCreationView = DateFilterCreationWithTextFieldsView()
+        let viewModel = AddTripDateFilterViewModel()
+        let dateFilterCreationView = DateFilterCreationView(viewModel: viewModel)
         let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)
         let addTripNavigationController = UINavigationController(rootViewController: viewController)
         viewController.delegate = self
-        navigationController.viewControllers.last?.present(addTripNavigationController, animated: true, completion: nil)    }
+        
+        navigationController.viewControllers.last?.present(addTripNavigationController,
+                                                           animated: true, completion: nil)
+        
+    }
 }

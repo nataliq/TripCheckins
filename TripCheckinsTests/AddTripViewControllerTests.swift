@@ -9,6 +9,16 @@
 import XCTest
 @testable import TripCheckins
 
+extension AddTripViewController {
+    var doneButton: UIBarButtonItem? {
+        return self.navigationItem.rightBarButtonItem
+    }
+    
+    var cancelButton: UIBarButtonItem? {
+        return self.navigationItem.leftBarButtonItem
+    }
+}
+
 class AddTripViewControllerTests: XCTestCase {
     
     var viewController: AddTripViewController!
@@ -27,7 +37,7 @@ class AddTripViewControllerTests: XCTestCase {
         viewController.viewDidLoad()
     }
     
-    class TestDateFilterCreationView: UIView, DateFilterCreationView {
+    class TestDateFilterCreationView: UIView, DateFilterProvider {
         let currentDateFilter: DateFilter
         
         init(dateFilter: DateFilter) {

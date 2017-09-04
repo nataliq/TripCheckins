@@ -26,8 +26,10 @@ class FoursquareCheckinItemParserTests: XCTestCase {
         ]
         let items = parser.itemsFromJSON(testResponse)
         XCTAssertEqual(items.count, 2)
-        XCTAssertEqual(items[0].locationName, "Dobrich")
-        XCTAssertEqual(items[1].locationName, "Bulgaria")
+        XCTAssertEqual(items[0].city, "Dobrich")
+        XCTAssertNil(items[1].city)
+        XCTAssertNil(items[0].country)
+        XCTAssertEqual(items[1].country, "Bulgaria")
         XCTAssertEqual(items[0].date.timeIntervalSince1970, testTimestamp)
     }
     
