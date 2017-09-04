@@ -18,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         guard let window = window else { return false }
+        window.tintColor = UIColor.appMainBackgroundColor()
         
         let navigationController = UINavigationController()
         window.rootViewController = navigationController
+        
         
         appCoordinator = AppCoordinator(navigationController: navigationController,
                                         authorizationTokenKeeper: UserDefaults.standard)
@@ -53,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if let coordicator = appCoordinator {
-            return coordicator.processURL(url)
+            return coordicator.openURL(url)
         } else {
             return false
         }

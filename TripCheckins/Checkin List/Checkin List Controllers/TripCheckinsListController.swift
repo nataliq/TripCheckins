@@ -12,8 +12,7 @@ class TripCheckinsListController: CheckinListController {
     var onViewModelUpdate: (() -> ())?
     private(set) var currentListViewModel: CheckinListViewModel? {
         didSet {
-            guard let updateClosure = onViewModelUpdate else { return }
-            updateClosure()
+            onViewModelUpdate?()
         }
     }
     
@@ -49,8 +48,11 @@ class TripCheckinsListController: CheckinListController {
         self.currentListViewModel = TripCheckinsListController.loadingViewModel(withName: trip.name)
         
         self.checkinsService.loadCheckins(after: trip.startDate, before: trip.endDate, completionHandler: { [weak self] (listItems) in
-            guard self?.currentListViewModel != nil else { return }
-            self?.currentListViewModel?.populateWithListItems(from: listItems)
+            guard let viewModel = self?.currentListViewModel else { return }
+            let listItemViewModels = listItems.map( {CheckinListItemViewModel(checkinItem: $0)} )
+            self?.currentListViewModel = CheckinListViewModel(title: viewModel.title,
+                                                              listItemViewsType: viewModel.listItemViewsType,
+                                                              state: .loadedListItemViewModels(listItemViewModels))
         })
     }
     

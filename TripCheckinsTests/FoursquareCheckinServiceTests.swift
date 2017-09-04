@@ -27,7 +27,7 @@ class FoursquareCheckinServiceTests: XCTestCase {
         class TestParser: FoursquareCheckinItemParser {
             override func itemsFromJSON(_ json: [String : Any]) -> [CheckinItem] {
                 return (json["items"] as! [String]).map({ (name) -> CheckinItem in
-                    return CheckinItem(venueName: name, locationName: "", date: Date())
+                    return CheckinItem(venueName: name, city: "", country: "", date: Date(), dateTimeZoneOffset: 0)
                 })
             }
         }

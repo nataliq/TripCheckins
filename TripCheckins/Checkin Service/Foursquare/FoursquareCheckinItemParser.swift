@@ -36,9 +36,15 @@ class FoursquareCheckinItemParser {
                     continue
             }
             let date = Date(timeIntervalSince1970: timestamp)
-            let locationName = venueLocation["city"] as? String ?? venueLocation["country"] as? String ?? ""
+            let city = venueLocation["city"] as? String
+            let country = venueLocation["country"] as? String
+            let timeZoneOffset = checkinItemDictionary["timeZoneOffset"] as? Int ?? 0
             
-            items.append(CheckinItem(venueName: venueName, locationName: locationName, date: date))
+            items.append(CheckinItem(venueName: venueName,
+                                     city: city,
+                                     country: country,
+                                     date: date,
+                                     dateTimeZoneOffset: timeZoneOffset))
         }
         return items
     }

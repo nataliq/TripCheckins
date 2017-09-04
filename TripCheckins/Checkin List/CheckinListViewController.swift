@@ -12,6 +12,14 @@ protocol CheckinListViewControllerDelegate: class {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController)
 }
 
+extension CheckinListViewController: DateFiltering {
+    func filter(withDateFilter dateFilter: DateFilter) {
+        if let controller = controller as? DateFiltering {
+            controller.filter(withDateFilter: dateFilter)
+        }
+    }
+}
+
 class CheckinListViewController: UITableViewController {
     
     private(set) var controller: CheckinListController

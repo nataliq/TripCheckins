@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol DateFilterCreationView {
+protocol DateFilterProvider {
     var currentDateFilter: DateFilter { get }
 }
 
-class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITextFieldDelegate {
+class DateFilterCreationView: UIView, DateFilterProvider, UITextFieldDelegate {
     
     var currentDateFilter: DateFilter {
-        return viewModel.dateFilter
+        return viewModel.currentDateFilter
     }
     
     convenience init() {
-        self.init(viewModel: DateFilterViewModel())
+        self.init(viewModel: AddTripDateFilterViewModel())
     }
     
-    init(viewModel: DateFilterViewModel) {
+    init(viewModel: DateFilterCreationViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
         
@@ -42,7 +42,7 @@ class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITe
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var viewModel: DateFilterViewModel {
+    private var viewModel: DateFilterCreationViewModel {
         didSet {
             syncViewWithViewModel()
         }
@@ -55,11 +55,11 @@ class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITe
         self.startDatePicker.maximumDate = viewModel.maximumStartDate
         self.endDatePicker.maximumDate = viewModel.maximumEndDate
         
-        if let startDate = viewModel.dateFilter.startDate {
+        if let startDate = viewModel.currentDateFilter.startDate {
             self.startDatePicker.date = startDate
         }
         
-        if let endDate = viewModel.dateFilter.endDate {
+        if let endDate = viewModel.currentDateFilter.endDate {
             self.endDatePicker.date = endDate
         }
     }
@@ -73,7 +73,7 @@ class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITe
     
     private let startDateTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .lightGray
+        textField.borderStyle = .roundedRect
         textField.placeholder = "from:"
         textField.clearButtonMode = .always
         return textField
@@ -88,7 +88,7 @@ class DateFilterCreationWithTextFieldsView: UIView, DateFilterCreationView, UITe
     
     private let endDateTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .lightGray
+        textField.borderStyle = .roundedRect
         textField.placeholder = "to:"
         textField.clearButtonMode = .always
         return textField

@@ -18,12 +18,12 @@
 		E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */; };
 		E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */; };
 		E145597C1F4419170008E0ED /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597B1F4419170008E0ED /* AddTripViewController.swift */; };
-		E145597E1F441E8C0008E0ED /* DateFilterCreationWithTextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597D1F441E8C0008E0ED /* DateFilterCreationWithTextFieldsView.swift */; };
-		E14559801F45D9FF0008E0ED /* DateFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597F1F45D9FF0008E0ED /* DateFilterViewModel.swift */; };
+		E145597E1F441E8C0008E0ED /* DateFilterCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597D1F441E8C0008E0ED /* DateFilterCreationView.swift */; };
+		E14559801F45D9FF0008E0ED /* AddTripDateFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597F1F45D9FF0008E0ED /* AddTripDateFilterViewModel.swift */; };
 		E14559831F45E2BB0008E0ED /* DateFiltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559821F45E2BB0008E0ED /* DateFiltering.swift */; };
 		E14559851F45E2C60008E0ED /* DateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559841F45E2C60008E0ED /* DateFilter.swift */; };
-		E14559871F4DCF4E0008E0ED /* DateFilterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */; };
-		E156EC531F39EB8A006AF828 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E156EC511F39EB8A006AF828 /* FSOAuth.m */; };
+		E14559871F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559861F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift */; };
+		E14A55661F5CC76E00796065 /* UIColor+TripCheckins.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */; };
 		E156EC551F39ECA3006AF828 /* FoursquareAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */; };
 		E156EC571F39F486006AF828 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC561F39F486006AF828 /* AppCoordinator.swift */; };
 		E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3611F39DB0500963177 /* AppDelegate.swift */; };
@@ -31,8 +31,8 @@
 		E16ED3691F39DB0500963177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E16ED3681F39DB0500963177 /* Assets.xcassets */; };
 		E16ED36C1F39DB0500963177 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E16ED36A1F39DB0500963177 /* LaunchScreen.storyboard */; };
 		E16ED3771F39DB0600963177 /* FoursquareCheckinItemParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3761F39DB0600963177 /* FoursquareCheckinItemParserTests.swift */; };
-		E1933F811F595F8B00C5D7D1 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1933F7F1F595F6800C5D7D1 /* FSOAuth.m */; };
 		E1933F761F59574F00C5D7D1 /* CheckinListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1933F751F59574F00C5D7D1 /* CheckinListViewModelTest.swift */; };
+		E1933F811F595F8B00C5D7D1 /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = E1933F7F1F595F6800C5D7D1 /* FSOAuth.m */; };
 		E1AD3DA21F594E89002F09A2 /* AddTripViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD3DA11F594E89002F09A2 /* AddTripViewControllerTests.swift */; };
 		E1D528F11F39FF87000D52C1 /* FoursquareCheckinFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F01F39FF87000D52C1 /* FoursquareCheckinFetcher.swift */; };
 		E1D528F31F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D528F21F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift */; };
@@ -77,11 +77,12 @@
 		E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCheckinsListControllerTests.swift; sourceTree = "<group>"; };
 		E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCheckinsListControllerTests.swift; sourceTree = "<group>"; };
 		E145597B1F4419170008E0ED /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
-		E145597D1F441E8C0008E0ED /* DateFilterCreationWithTextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterCreationWithTextFieldsView.swift; sourceTree = "<group>"; };
-		E145597F1F45D9FF0008E0ED /* DateFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterViewModel.swift; sourceTree = "<group>"; };
+		E145597D1F441E8C0008E0ED /* DateFilterCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterCreationView.swift; sourceTree = "<group>"; };
+		E145597F1F45D9FF0008E0ED /* AddTripDateFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripDateFilterViewModel.swift; sourceTree = "<group>"; };
 		E14559821F45E2BB0008E0ED /* DateFiltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFiltering.swift; sourceTree = "<group>"; };
 		E14559841F45E2C60008E0ED /* DateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilter.swift; sourceTree = "<group>"; };
-		E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterViewModelTests.swift; sourceTree = "<group>"; };
+		E14559861F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripDateFilterViewModelTests.swift; sourceTree = "<group>"; };
+		E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TripCheckins.swift"; sourceTree = "<group>"; };
 		E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TripCheckins-Bridging-Header.h"; sourceTree = "<group>"; };
 		E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareAuthorizer.swift; sourceTree = "<group>"; };
 		E156EC561F39F486006AF828 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -96,9 +97,9 @@
 		E16ED3781F39DB0600963177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E16ED37D1F39DB0600963177 /* TripCheckinsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TripCheckinsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E16ED3831F39DB0600963177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1933F751F59574F00C5D7D1 /* CheckinListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListViewModelTest.swift; sourceTree = "<group>"; };
 		E1933F7F1F595F6800C5D7D1 /* FSOAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FSOAuth.m; sourceTree = "<group>"; };
 		E1933F801F595F6800C5D7D1 /* FSOAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FSOAuth.h; sourceTree = "<group>"; };
-		E1933F751F59574F00C5D7D1 /* CheckinListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinListViewModelTest.swift; sourceTree = "<group>"; };
 		E1AD3DA11F594E89002F09A2 /* AddTripViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewControllerTests.swift; sourceTree = "<group>"; };
 		E1D528F01F39FF87000D52C1 /* FoursquareCheckinFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareCheckinFetcher.swift; sourceTree = "<group>"; };
 		E1D528F21F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTokenKeeper.swift; sourceTree = "<group>"; };
@@ -183,8 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				E145597B1F4419170008E0ED /* AddTripViewController.swift */,
-				E145597F1F45D9FF0008E0ED /* DateFilterViewModel.swift */,
-				E145597D1F441E8C0008E0ED /* DateFilterCreationWithTextFieldsView.swift */,
+				E145597F1F45D9FF0008E0ED /* AddTripDateFilterViewModel.swift */,
+				E145597D1F441E8C0008E0ED /* DateFilterCreationView.swift */,
 			);
 			path = "Add trip";
 			sourceTree = "<group>";
@@ -196,6 +197,23 @@
 				E14559841F45E2C60008E0ED /* DateFilter.swift */,
 			);
 			path = "Date filtering";
+			sourceTree = "<group>";
+		};
+		E14A55631F5CC71C00796065 /* Application flow */ = {
+			isa = PBXGroup;
+			children = (
+				E16ED3611F39DB0500963177 /* AppDelegate.swift */,
+				E156EC561F39F486006AF828 /* AppCoordinator.swift */,
+			);
+			path = "Application flow";
+			sourceTree = "<group>";
+		};
+		E14A55641F5CC74A00796065 /* Common UI */ = {
+			isa = PBXGroup;
+			children = (
+				E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */,
+			);
+			path = "Common UI";
 			sourceTree = "<group>";
 		};
 		E156EC4F1F39EB6B006AF828 /* FSOAuth */ = {
@@ -231,12 +249,13 @@
 		E16ED3601F39DB0500963177 /* TripCheckins */ = {
 			isa = PBXGroup;
 			children = (
-				E16ED3611F39DB0500963177 /* AppDelegate.swift */,
-				E156EC561F39F486006AF828 /* AppCoordinator.swift */,
-				E14559811F45E2AF0008E0ED /* Date filtering */,
-				E145597A1F4418EE0008E0ED /* Add trip */,
-				E1D528F81F3AF414000D52C1 /* Authorization */,
+				E14A55631F5CC71C00796065 /* Application flow */,
+				E1D528F81F3AF414000D52C1 /* Foursquare Authorization */,
+				E10774491F3E003F0047863A /* Checkin Service */,
 				E1D529051F3BA10D000D52C1 /* Checkin List */,
+				E145597A1F4418EE0008E0ED /* Add trip */,
+				E14559811F45E2AF0008E0ED /* Date filtering */,
+				E14A55641F5CC74A00796065 /* Common UI */,
 				E16ED3681F39DB0500963177 /* Assets.xcassets */,
 				E16ED36A1F39DB0500963177 /* LaunchScreen.storyboard */,
 				E16ED36D1F39DB0600963177 /* Info.plist */,
@@ -253,7 +272,7 @@
 				E1D529081F3BB28E000D52C1 /* FoursquareEndpointConstructorTests.swift */,
 				E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */,
 				E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */,
-				E14559861F4DCF4E0008E0ED /* DateFilterViewModelTests.swift */,
+				E14559861F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift */,
 				E1AD3DA11F594E89002F09A2 /* AddTripViewControllerTests.swift */,
 				E1933F751F59574F00C5D7D1 /* CheckinListViewModelTest.swift */,
 				E16ED3781F39DB0600963177 /* Info.plist */,
@@ -269,7 +288,7 @@
 			path = TripCheckinsUITests;
 			sourceTree = "<group>";
 		};
-		E1D528F81F3AF414000D52C1 /* Authorization */ = {
+		E1D528F81F3AF414000D52C1 /* Foursquare Authorization */ = {
 			isa = PBXGroup;
 			children = (
 				E1D528F21F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift */,
@@ -277,13 +296,13 @@
 				E16ED3631F39DB0500963177 /* FoursquareAuthorizationViewController.swift */,
 				E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */,
 			);
+			name = "Foursquare Authorization";
 			path = Authorization;
 			sourceTree = "<group>";
 		};
 		E1D529051F3BA10D000D52C1 /* Checkin List */ = {
 			isa = PBXGroup;
 			children = (
-				E10774491F3E003F0047863A /* Checkin Service */,
 				E10774F71F40CF1B0047863A /* Trip Service */,
 				E107744D1F3E01060047863A /* Checkin List Controllers */,
 				E1D528F91F3AF599000D52C1 /* CheckinListViewController.swift */,
@@ -428,9 +447,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E107743F1F3DE70F0047863A /* AllCheckinsListController.swift in Sources */,
-				E145597E1F441E8C0008E0ED /* DateFilterCreationWithTextFieldsView.swift in Sources */,
+				E145597E1F441E8C0008E0ED /* DateFilterCreationView.swift in Sources */,
 				E16ED3641F39DB0500963177 /* FoursquareAuthorizationViewController.swift in Sources */,
 				E107744F1F3E04930047863A /* TripService.swift in Sources */,
+				E14A55661F5CC76E00796065 /* UIColor+TripCheckins.swift in Sources */,
 				E10774FD1F40CFF70047863A /* PredefinedTripService.swift in Sources */,
 				E1D528FC1F3AF684000D52C1 /* FoursquareCheckinService.swift in Sources */,
 				E1D528F31F3A04B1000D52C1 /* AuthorizationTokenKeeper.swift in Sources */,
@@ -446,7 +466,7 @@
 				E10774F91F40CF360047863A /* CheckinItem.swift in Sources */,
 				E1D528FE1F3AFDF1000D52C1 /* CheckinTableViewCell.swift in Sources */,
 				E145597C1F4419170008E0ED /* AddTripViewController.swift in Sources */,
-				E14559801F45D9FF0008E0ED /* DateFilterViewModel.swift in Sources */,
+				E14559801F45D9FF0008E0ED /* AddTripDateFilterViewModel.swift in Sources */,
 				E10774411F3DE9440047863A /* CheckinListController.swift in Sources */,
 				E14559851F45E2C60008E0ED /* DateFilter.swift in Sources */,
 				E107744B1F3E00710047863A /* CheckinService.swift in Sources */,
@@ -466,7 +486,7 @@
 				E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */,
 				E16ED3771F39DB0600963177 /* FoursquareCheckinItemParserTests.swift in Sources */,
 				E1AD3DA21F594E89002F09A2 /* AddTripViewControllerTests.swift in Sources */,
-				E14559871F4DCF4E0008E0ED /* DateFilterViewModelTests.swift in Sources */,
+				E14559871F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift in Sources */,
 				E1933F761F59574F00C5D7D1 /* CheckinListViewModelTest.swift in Sources */,
 				E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */,
 			);

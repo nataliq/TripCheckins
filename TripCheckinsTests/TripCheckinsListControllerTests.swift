@@ -17,8 +17,8 @@ class TripCheckinsListControllerTests: XCTestCase {
         var expectedLoadEndDate: Date!
         
         let testItems: [CheckinItem] = [
-            CheckinItem(venueName: "1", locationName: "", date: Date()),
-            CheckinItem(venueName: "2", locationName: "", date: Date())
+            CheckinItem(venueName: "1", city: "", country: "", date: Date(), dateTimeZoneOffset: 0),
+            CheckinItem(venueName: "2", city: "", country: "", date: Date(), dateTimeZoneOffset: 0)
         ]
         func loadCheckins(after fromDate: Date?,
                           before toDate: Date?,

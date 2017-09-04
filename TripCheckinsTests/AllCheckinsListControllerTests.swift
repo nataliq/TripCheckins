@@ -13,8 +13,8 @@ class AllCheckinsListControllerTests: XCTestCase {
     
     class TestCheckinService: CheckinService {
         var testItems: [CheckinItem] = [
-            CheckinItem(venueName: "1", locationName: "", date: Date()),
-            CheckinItem(venueName: "2", locationName: "", date: Date())
+            CheckinItem(venueName: "1", city: "", country: "", date: Date(), dateTimeZoneOffset: 0),
+            CheckinItem(venueName: "2", city: "", country: "", date: Date(), dateTimeZoneOffset: 0)
         ]
         func loadCheckins(after fromDate: Date?, before toDate: Date?, completionHandler: @escaping ([CheckinItem]) -> Void) {
             let dateFilter = DateFilter(startDate: fromDate, endDate: toDate)
@@ -90,8 +90,8 @@ class AllCheckinsListControllerTests: XCTestCase {
         let item1Date = now.addingTimeInterval(-3)
         let item2Date = now.addingTimeInterval(-1)
         checkinService.testItems = [
-            CheckinItem(venueName: "1", locationName: "", date: item1Date),
-            CheckinItem(venueName: "2", locationName: "", date: item2Date)
+            CheckinItem(venueName: "1", city: "", country: "", date: item1Date, dateTimeZoneOffset: 0),
+            CheckinItem(venueName: "2", city: "", country: "", date: item2Date, dateTimeZoneOffset: 0),
         ]
         
         reloadItemsAndWaitForLoadedState()

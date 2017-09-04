@@ -15,14 +15,16 @@ struct CheckinListItemViewModel {
     
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
+        formatter.dateFormat = "MMM d 'at' h:mm a"
         return formatter
     }()
     
     init(checkinItem: CheckinItem) {
         self.venueName = checkinItem.venueName
-        self.locationName = checkinItem.locationName
-        self.dateString = CheckinListItemViewModel.dateFormatter.string(from: checkinItem.date)
+        self.locationName = checkinItem.city ?? checkinItem.country ?? ""
+        
+        let dateFormatter = CheckinListItemViewModel.dateFormatter
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: checkinItem.dateTimeZoneOffset)
+        self.dateString = dateFormatter.string(from: checkinItem.date)
     }
 }

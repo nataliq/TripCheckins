@@ -11,7 +11,7 @@ import Foundation
 class AllCheckinsListController: CheckinListController {
     var onViewModelUpdate: (() -> ())?
     
-    var currentDateFilter: DateFilter? {
+    private var currentDateFilter: DateFilter? {
         didSet {
             reloadListItems()
         }
