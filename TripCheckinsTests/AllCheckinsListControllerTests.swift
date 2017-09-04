@@ -12,12 +12,13 @@ import XCTest
 class AllCheckinsListControllerTests: XCTestCase {
     
     class TestCheckinService: CheckinService {
-        let testItems: [CheckinItem] = [
+        var testItems: [CheckinItem] = [
             CheckinItem(venueName: "1", locationName: "", date: Date()),
             CheckinItem(venueName: "2", locationName: "", date: Date())
         ]
         func loadCheckins(after fromDate: Date?, before toDate: Date?, completionHandler: @escaping ([CheckinItem]) -> Void) {
-            completionHandler(self.testItems)
+            let dateFilter = DateFilter(startDate: fromDate, endDate: toDate)
+            completionHandler(self.testItems.filter(withDateFilter: dateFilter))
         }
     }
     
@@ -82,5 +83,76 @@ class AllCheckinsListControllerTests: XCTestCase {
         
         listController.reloadListItems()
         wait(for: [loadedStateExpectation], timeout: 1)
+    }
+    
+    func testDateFiltering() {
+        let now = Date()
+        let item1Date = now.addingTimeInterval(-3)
+        let item2Date = now.addingTimeInterval(-1)
+        checkinService.testItems = [
+            CheckinItem(venueName: "1", locationName: "", date: item1Date),
+            CheckinItem(venueName: "2", locationName: "", date: item2Date)
+        ]
+        
+        reloadItemsAndWaitForLoadedState()
+        
+        filterListControllr(fromDate: nil, toDate: nil) { items in
+            XCTAssertTrue(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertTrue(items.contains(where: {$0.venueName == "2"}))
+        }
+    
+        filterListControllr(fromDate: now.addingTimeInterval(-2), toDate: nil) { items in
+            XCTAssertFalse(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertTrue(items.contains(where: {$0.venueName == "2"}))
+        }
+        
+        filterListControllr(fromDate: nil, toDate: now.addingTimeInterval(-3)) { items in
+            XCTAssertTrue(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertFalse(items.contains(where: {$0.venueName == "2"}))
+        }
+        
+        filterListControllr(fromDate: now.addingTimeInterval(-3), toDate: now.addingTimeInterval(-2)) { items in
+            XCTAssertTrue(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertFalse(items.contains(where: {$0.venueName == "2"}))
+        }
+        
+        filterListControllr(fromDate: now.addingTimeInterval(-2), toDate: now.addingTimeInterval(-1)) { items in
+            XCTAssertFalse(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertTrue(items.contains(where: {$0.venueName == "2"}))
+        }
+        
+        filterListControllr(fromDate: now.addingTimeInterval(-5), toDate: now.addingTimeInterval(-4)) { items in
+            XCTAssertFalse(items.contains(where: {$0.venueName == "1"}))
+            XCTAssertFalse(items.contains(where: {$0.venueName == "2"}))
+        }
+    }
+    
+    // MARK: - Helpers
+    func reloadItemsAndWaitForLoadedState() {
+        let loadedStateExpectation = expectation(description: "loaded state")
+        listController.onViewModelUpdate = {
+            switch self.listController.currentListViewModel!.state {
+            case .loadedListItemViewModels(_):
+                loadedStateExpectation.fulfill()
+            default:
+                break
+            }
+        }
+        
+        listController.reloadListItems()
+        wait(for: [loadedStateExpectation], timeout: 1)
+        listController.onViewModelUpdate = nil
+    }
+    
+    func filterListControllr(fromDate startDate:Date?, toDate endDate: Date?, loadedItemsAssertion assertion:([CheckinListItemViewModel]) -> Void) {
+        let dateFilter = DateFilter(startDate: startDate, endDate: endDate)
+        listController.filter(withDateFilter: dateFilter)
+        XCTAssertNotNil(listController.currentListViewModel)
+        switch listController.currentListViewModel!.state {
+        case .loadedListItemViewModels(let items):
+            assertion(items)
+        default:
+            XCTFail()
+        }
     }
 }

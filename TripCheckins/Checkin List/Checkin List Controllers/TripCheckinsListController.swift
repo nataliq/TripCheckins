@@ -48,9 +48,7 @@ class TripCheckinsListController: CheckinListController {
     private func loadTripCheckins(_ trip:Trip) {
         self.currentListViewModel = TripCheckinsListController.loadingViewModel(withName: trip.name)
         
-        self.checkinsService.loadCheckins(after: trip.startDate,
-                                          before: trip.endDate,
-                                          completionHandler: { [weak self] (listItems) in
+        self.checkinsService.loadCheckins(after: trip.startDate, before: trip.endDate, completionHandler: { [weak self] (listItems) in
             guard self?.currentListViewModel != nil else { return }
             self?.currentListViewModel?.populateWithListItems(from: listItems)
         })

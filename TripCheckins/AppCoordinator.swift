@@ -13,6 +13,7 @@ class AppCoordinator {
     let navigationController: UINavigationController
     let authorizationTokenKeeper: AuthorizationTokenKeeper?
     var foursquareAuthorizer: FoursquareAuthorizer?
+    var allCheckinsListController: AllCheckinsListController?
     
     init(navigationController: UINavigationController, authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
         self.navigationController = navigationController
@@ -25,15 +26,14 @@ class AppCoordinator {
         }
     }
 
+    // TODO: Change name.
     func processURL(_ url:URL) -> Bool {
-        // TODO: redirect to child coordinators
         guard let foursquareAuthorizer = foursquareAuthorizer else { return false }
         return foursquareAuthorizer.requestAccessCode(forURL: url)
     }
     
     // MARK: - Private
     private func showAuthorizationViewController() {
-        // TODO: move to a child coordinator
         let foursquareAuthorizer = FoursquareAuthorizer()
         let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
         viewController.delegate = self
@@ -43,8 +43,9 @@ class AppCoordinator {
     
     private func showCheckinsList(authorizationToken token:String) {
         let checkinsService = FoursquareCheckinService(fetcher: FoursquareCheckinFetcher(authorizationToken: token), parser: FoursquareCheckinItemParser())
-//        let controller = AllCheckinsListController(checkinsService: checkinsService)
-        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
+        let controller = AllCheckinsListController(checkinsService: checkinsService)
+//        let controller = TripCheckinsListController(checkinsService: checkinsService, tripService: PredefinedTripService(), tripId: "test")
+        allCheckinsListController = controller
         let viewController = CheckinListViewController(controller: controller)
         viewController.delegate = self
         pushViewController(viewController)
@@ -63,9 +64,25 @@ extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
     }
 }
 
+extension AppCoordinator: AddTripViewControllerDelegate {
+    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController, dateFilter filter: DateFilter) {
+        controller.dismiss(animated: true, completion: { [weak self] in
+            self?.allCheckinsListController?.filter(withDateFilter: filter)
+        })
+    }
+    
+    func addTripControllerDidCancel(_ controller: AddTripViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
 extension AppCoordinator: CheckinListViewControllerDelegate {
     func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
-        // TODO: implement adding
-        print("add trigerred")
-    }
+        // TODO: implement saving
+        
+        let dateFilterCreationView = DateFilterCreationWithTextFieldsView()
+        let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)
+        let addTripNavigationController = UINavigationController(rootViewController: viewController)
+        viewController.delegate = self
+        navigationController.viewControllers.last?.present(addTripNavigationController, animated: true, completion: nil)    }
 }
