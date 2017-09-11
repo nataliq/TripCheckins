@@ -47,7 +47,8 @@ class AppCoordinator {
     
     private func showTripListOrAllCheckins(authorizationToken token: String) {
         if let localItemsStorage = localItemsStorage {
-            let tripService = LocalTripService(localItemsStorage: localItemsStorage)
+            let tripService = LocalTripService(localItemsStorage: localItemsStorage, 
+                                               additionalTripSource: PredefinedTripService())
 
             showTripList(withTripService: tripService)
         } else {

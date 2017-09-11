@@ -66,6 +66,25 @@ class LocalTripServiceTests: XCTestCase {
         wait(for: [loadingExpectation], timeout: 1)
     }
     
+    func testThatAdditionalTripsAreAddedOnlyOnce() {
+        
+        class AdditionalTripService: TripService {
+            func loadAllTrips(_ completion: ([Trip]) -> Void) {
+                completion([Trip(startDate: Date(), endDate: nil, name: "additional")])
+            }
+            
+            func addTrip(_ trip: Trip) { }
+        }
+        tripService = LocalTripService(localItemsStorage: localItemsStorage,
+                                       additionalTripSource: AdditionalTripService())
+        var tripsCount1 = -1, tripsCount2 = 0
+        
+        loadTrips(loadedTripsCount: &tripsCount1)
+        loadTrips(loadedTripsCount: &tripsCount2)
+        
+        XCTAssertEqual(tripsCount1, tripsCount2)
+    }
+    
     private func loadTrips(loadedTripsCount count: inout Int) {
         let loadingExpectation = expectation(description: "loading trips")
         tripService.loadAllTrips { trips in
