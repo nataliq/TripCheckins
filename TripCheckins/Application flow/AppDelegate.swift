@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         appCoordinator = AppCoordinator(navigationController: navigationController,
-                                        authorizationTokenKeeper: UserDefaults.standard)
+                                        authorizationTokenKeeper: UserDefaults.standard,
+                                        localItemsStorage: UserDefaults.standard)
         
         window.makeKeyAndVisible()
         return true

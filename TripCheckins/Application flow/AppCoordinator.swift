@@ -12,18 +12,23 @@ class AppCoordinator {
     
     let navigationController: UINavigationController
     let authorizationTokenKeeper: AuthorizationTokenKeeper?
+    let localItemsStorage: LocalItemsStorage?
+    
     var foursquareAuthorizer: FoursquareAuthorizer?
     
     init(navigationController: UINavigationController,
-         authorizationTokenKeeper: AuthorizationTokenKeeper? = nil) {
+         authorizationTokenKeeper: AuthorizationTokenKeeper? = nil,
+         localItemsStorage: LocalItemsStorage? = nil) {
         self.navigationController = navigationController
         self.authorizationTokenKeeper = authorizationTokenKeeper
+        self.localItemsStorage = localItemsStorage
         
-        if let token = authorizationTokenKeeper?.authorizationToken() {
-            showCheckinsList(authorizationToken: token)
-        } else {
+        guard let token = authorizationTokenKeeper?.authorizationToken() else {
             showAuthorizationViewController()
+            return
         }
+        
+        showTripListOrAllCheckins(authorizationToken: token)
     }
 
     func openURL(_ url:URL) -> Bool {
@@ -40,10 +45,27 @@ class AppCoordinator {
         self.foursquareAuthorizer = foursquareAuthorizer
     }
     
-    private func showCheckinsList(authorizationToken token:String) {
+    private func showTripListOrAllCheckins(authorizationToken token: String) {
+        if let localItemsStorage = localItemsStorage {
+            let tripService = LocalTripService(localItemsStorage: localItemsStorage)
+
+            showTripList(withTripService: tripService)
+        } else {
+            showCheckinsList(authorizationToken: token)
+        }
+    }
+    
+    private func showCheckinsList(authorizationToken token: String) {
         let checkinsService = FoursquareCheckinService(authorizationToken: token)
         let controller = AllCheckinsListController(checkinsService: checkinsService)
         let viewController = CheckinListViewController(controller: controller)
+        viewController.delegate = self
+        pushViewController(viewController)
+    }
+    
+    private func showTripList(withTripService tripService: TripService) {
+        let controller = LocalTripsController(tripService: tripService)
+        let viewController = TripListViewController(controller: controller)
         viewController.delegate = self
         pushViewController(viewController)
     }
@@ -57,7 +79,7 @@ class AppCoordinator {
 extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
     func didFinishAuthorizationFlow(_ token: String) {
         authorizationTokenKeeper?.persistAuthorizationToken(token)
-        showCheckinsList(authorizationToken: token)
+        showTripListOrAllCheckins(authorizationToken: token)
     }
 }
 
@@ -89,4 +111,24 @@ extension AppCoordinator: CheckinListViewControllerDelegate {
                                                            animated: true, completion: nil)
         
     }
+}
+
+extension AppCoordinator: TripListViewControllerDelegate {
+    func tripListViewController(_ controller: TripListViewController,
+                                didSelectTripWithId tripId: String) {
+        guard let token = authorizationTokenKeeper?.authorizationToken() else {
+            showAuthorizationViewController()
+            return
+        }
+        
+        let checkinsService = FoursquareCheckinService(authorizationToken: token)
+        let controller = TripCheckinsListController(checkinsService: checkinsService,
+                                                    tripService: controller.controller.tripService,
+                                                    tripId: tripId)
+        let viewController = CheckinListViewController(controller: controller)
+        viewController.delegate = self
+        pushViewController(viewController)
+    }
+    
+    
 }

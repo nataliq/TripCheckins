@@ -9,11 +9,9 @@
 import Foundation
 
 class PredefinedTripService: TripService {
-    func loadTrip(withId id: String, completionHandler completion:(Trip) -> Void) {
-        let trip = Trip(startDate: Date().addingTimeInterval(-7*24*3600),
-                        endDate: nil,
-                        name: "Last 7 days")
-        completion(trip)
+    
+    func addTrip(_ trip: Trip) {
+        assertionFailure("That's a predefined trip service, can't add additional trips")
     }
     
     func loadAllTrips(_ completion:([Trip]) -> Void) {

@@ -36,9 +36,9 @@ class TripCheckinsListController: CheckinListController {
             loadTripCheckins(trip)
         } else {
             tripService.loadTrip(withId: tripId, completionHandler: { [weak self] (trip) in
-                guard let strongSelf = self else { return }
+                guard let strongSelf = self, let trip = trip else { return }
                 strongSelf.trip = trip
-                strongSelf.reloadListItems()
+                reloadListItems()
                 loadTripCheckins(trip)
             })
         }

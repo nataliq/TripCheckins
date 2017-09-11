@@ -19,6 +19,4 @@ extension UserDefaults: AuthorizationTokenKeeper {
     func persistAuthorizationToken(_ token: String?) {
         setValue(token, forKey: authorizationTokenKey)
     }
-    
-    
 }

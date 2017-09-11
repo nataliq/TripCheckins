@@ -20,13 +20,6 @@ protocol DateFilterCreationViewModel: DateFilterProvider {
 
 public struct AddTripDateFilterViewModel: DateFilterCreationViewModel {
 
-    static private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter
-    }()
-
     private(set) var currentDateFilter: DateFilter {
         didSet {
             maximumStartDate = calculatedMaximumStartDate()
@@ -111,7 +104,7 @@ public struct AddTripDateFilterViewModel: DateFilterCreationViewModel {
     
     private func formattedDateString(for date:Date?) -> String? {
         if let date = date {
-            return AddTripDateFilterViewModel.dateFormatter.string(from: date)
+            return DateFormatter.tripDateFormatter.string(from: date)
         } else {
             return nil
         }
