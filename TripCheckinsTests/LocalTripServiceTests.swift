@@ -68,15 +68,13 @@ class LocalTripServiceTests: XCTestCase {
     
     func testThatAdditionalTripsAreAddedOnlyOnce() {
         
-        class AdditionalTripService: TripService {
+        class AdditionalTripLoadingService: TripLoadingService {
             func loadAllTrips(_ completion: ([Trip]) -> Void) {
                 completion([Trip(startDate: Date(), endDate: nil, name: "additional")])
             }
-            
-            func addTrip(_ trip: Trip) { }
         }
         tripService = LocalTripService(localItemsStorage: localItemsStorage,
-                                       additionalTripSource: AdditionalTripService())
+                                       additionalTripLoadingService: AdditionalTripLoadingService())
         var tripsCount1 = -1, tripsCount2 = 0
         
         loadTrips(loadedTripsCount: &tripsCount1)

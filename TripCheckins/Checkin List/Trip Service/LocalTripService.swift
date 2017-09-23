@@ -11,19 +11,20 @@ import Foundation
 class LocalTripService: TripService {
     
     private var localItemsStorage: LocalItemsStorage
-    private var additionalTripSource: TripService?
+    private var additionalTripLoadingService: TripLoadingService?
     private var additionalTrips: [Trip]?
     
-    init(localItemsStorage: LocalItemsStorage, additionalTripSource: TripService? = nil) {
+    
+    init(localItemsStorage: LocalItemsStorage, additionalTripLoadingService: TripLoadingService? = nil) {
         self.localItemsStorage = localItemsStorage
-        self.additionalTripSource = additionalTripSource
+        self.additionalTripLoadingService = additionalTripLoadingService
     }
     
     func loadAllTrips(_ completion: ([Trip]) -> Void) {
         let trips = localTrips()
         
-        if let additionalTripSource = additionalTripSource, additionalTrips == nil {
-            additionalTripSource.loadAllTrips({ [weak self] (additionalTrips) in
+        if let additionalTripLoadingService = additionalTripLoadingService, additionalTrips == nil {
+            additionalTripLoadingService.loadAllTrips({ [weak self] (additionalTrips) in
                 self?.additionalTrips = additionalTrips
                 completion(trips + additionalTrips)
             })

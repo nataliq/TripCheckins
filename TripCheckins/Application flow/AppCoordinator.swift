@@ -11,24 +11,27 @@ import UIKit
 class AppCoordinator {
     
     let navigationController: UINavigationController
-    let authorizationTokenKeeper: AuthorizationTokenKeeper?
-    let localItemsStorage: LocalItemsStorage?
+    let authorizationTokenKeeper: AuthorizationTokenKeeper
+    let localItemsStorage: LocalItemsStorage
+    
+    private lazy var tripService = LocalTripService(localItemsStorage: localItemsStorage,
+                                                    additionalTripLoadingService: PredefinedTripService())
     
     var foursquareAuthorizer: FoursquareAuthorizer?
     
     init(navigationController: UINavigationController,
-         authorizationTokenKeeper: AuthorizationTokenKeeper? = nil,
-         localItemsStorage: LocalItemsStorage? = nil) {
+         authorizationTokenKeeper: AuthorizationTokenKeeper,
+         localItemsStorage: LocalItemsStorage) {
         self.navigationController = navigationController
         self.authorizationTokenKeeper = authorizationTokenKeeper
         self.localItemsStorage = localItemsStorage
         
-        guard let token = authorizationTokenKeeper?.authorizationToken() else {
+        guard authorizationTokenKeeper.authorizationToken() != nil else {
             showAuthorizationViewController()
             return
         }
         
-        showTripListOrAllCheckins(authorizationToken: token)
+        showTripList()
     }
 
     func openURL(_ url:URL) -> Bool {
@@ -45,17 +48,6 @@ class AppCoordinator {
         self.foursquareAuthorizer = foursquareAuthorizer
     }
     
-    private func showTripListOrAllCheckins(authorizationToken token: String) {
-        if let localItemsStorage = localItemsStorage {
-            let tripService = LocalTripService(localItemsStorage: localItemsStorage, 
-                                               additionalTripSource: PredefinedTripService())
-
-            showTripList(withTripService: tripService)
-        } else {
-            showCheckinsList(authorizationToken: token)
-        }
-    }
-    
     private func showCheckinsList(authorizationToken token: String) {
         let checkinsService = FoursquareCheckinService(authorizationToken: token)
         let controller = AllCheckinsListController(checkinsService: checkinsService)
@@ -64,9 +56,24 @@ class AppCoordinator {
         pushViewController(viewController)
     }
     
-    private func showTripList(withTripService tripService: TripService) {
+    private func showTripList() {
         let controller = LocalTripsController(tripService: tripService)
         let viewController = TripListViewController(controller: controller)
+        viewController.delegate = self
+        pushViewController(viewController)
+    }
+    
+    private func showTrip(withId tripId: String) {
+        guard let token = authorizationTokenKeeper.authorizationToken() else {
+            showAuthorizationViewController()
+            return
+        }
+        
+        let checkinsService = FoursquareCheckinService(authorizationToken: token)
+        let controller = TripCheckinsListController(checkinsService: checkinsService,
+                                                    tripService: tripService,
+                                                    tripId: tripId)
+        let viewController = CheckinListViewController(controller: controller)
         viewController.delegate = self
         pushViewController(viewController)
     }
@@ -79,19 +86,16 @@ class AppCoordinator {
 
 extension AppCoordinator: FoursquareAuthorizationViewControllerDelegate {
     func didFinishAuthorizationFlow(_ token: String) {
-        authorizationTokenKeeper?.persistAuthorizationToken(token)
-        showTripListOrAllCheckins(authorizationToken: token)
+        authorizationTokenKeeper.persistAuthorizationToken(token)
+        showTripList()
     }
 }
 
 extension AppCoordinator: AddTripViewControllerDelegate {
-    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,
-                                              dateFilter filter: DateFilter) {
+    func addTripController(_ controller: AddTripViewController,
+                           didAddTripWithId tripId: String) {
         controller.dismiss(animated: true, completion: { [weak self] in
-            // TODO: implement saving
-            if let dateFilteringViewController = self?.navigationController.topViewController as? DateFiltering {
-                dateFilteringViewController.filter(withDateFilter: filter)
-            }
+            self?.showTrip(withId: tripId)
         })
     }
     
@@ -101,34 +105,25 @@ extension AppCoordinator: AddTripViewControllerDelegate {
 }
 
 extension AppCoordinator: CheckinListViewControllerDelegate {
-    func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController) {
+    
+}
+
+extension AppCoordinator: TripListViewControllerDelegate {
+    func tripListViewControllerDidTriggerAddAction(_ controller: TripListViewController) {
         let viewModel = AddTripDateFilterViewModel()
         let dateFilterCreationView = DateFilterCreationView(viewModel: viewModel)
-        let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)
+        let viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView,
+                                                   tripCreationService: controller.tripsController.tripService)
         let addTripNavigationController = UINavigationController(rootViewController: viewController)
         viewController.delegate = self
         
         navigationController.viewControllers.last?.present(addTripNavigationController,
                                                            animated: true, completion: nil)
-        
     }
-}
-
-extension AppCoordinator: TripListViewControllerDelegate {
+    
     func tripListViewController(_ controller: TripListViewController,
                                 didSelectTripWithId tripId: String) {
-        guard let token = authorizationTokenKeeper?.authorizationToken() else {
-            showAuthorizationViewController()
-            return
-        }
-        
-        let checkinsService = FoursquareCheckinService(authorizationToken: token)
-        let controller = TripCheckinsListController(checkinsService: checkinsService,
-                                                    tripService: controller.controller.tripService,
-                                                    tripId: tripId)
-        let viewController = CheckinListViewController(controller: controller)
-        viewController.delegate = self
-        pushViewController(viewController)
+        showTrip(withId: tripId)
     }
     
     

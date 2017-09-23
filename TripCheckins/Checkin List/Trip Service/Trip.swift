@@ -10,11 +10,11 @@ import Foundation
 
 struct Trip: Codable {
     let uuid: String
-    let startDate: Date
+    let startDate: Date?
     let endDate: Date?
     let name: String
     
-    init(startDate: Date, endDate: Date?, name: String) {
+    init(startDate: Date?, endDate: Date?, name: String) {
         self.uuid = UUID().uuidString
         self.startDate = startDate
         self.endDate = endDate

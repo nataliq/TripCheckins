@@ -9,6 +9,7 @@
 import UIKit
 
 protocol TripListViewControllerDelegate: class {
+    func tripListViewControllerDidTriggerAddAction(_ controller: TripListViewController)
     func tripListViewController(_ controller: TripListViewController,
                                 didSelectTripWithId tripId: String)
 }
@@ -16,13 +17,17 @@ protocol TripListViewControllerDelegate: class {
 class TripListViewController: UITableViewController {
 
     private let cellIdentifier = "Cell"
-    private(set) var controller: TripsController
+    private(set) var tripsController: TripsController
     
     weak var delegate: TripListViewControllerDelegate?
     
     init(controller: TripsController) {
-        self.controller = controller
+        self.tripsController = controller
         super.init(nibName: nil, bundle: nil)
+        
+        self.tripsController.onViewModelUpdate = { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,13 +39,19 @@ class TripListViewController: UITableViewController {
         
         self.title = "Trips"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
+        
         tableView.tableFooterView = UIView()
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    // MARK: - Actions
+    @objc func addButtonTapped(_ sender: Any) {
+        delegate?.tripListViewControllerDidTriggerAddAction(self)
     }
     
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return controller.tripViewModels?.count ?? 0
+        return tripsController.tripViewModels?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +60,7 @@ class TripListViewController: UITableViewController {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
         }
         
-        let viewModel = controller.tripViewModels![indexPath.row]
+        let viewModel = tripsController.tripViewModels![indexPath.row]
         cell!.textLabel?.text = viewModel.title
         cell!.detailTextLabel?.text = viewModel.durationString
         
@@ -58,7 +69,7 @@ class TripListViewController: UITableViewController {
     
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tripId = controller.tripId(forViewModelIndex: indexPath.row)
+        let tripId = tripsController.tripId(forViewModelIndex: indexPath.row)
         delegate?.tripListViewController(self, didSelectTripWithId: tripId)
     }
 

@@ -15,10 +15,15 @@ struct TripViewModel {
     init(trip: Trip) {
         self.title = trip.name
         
-        var durationString = "From " + DateFormatter.tripDateFormatter.string(from: trip.startDate)
-        if let endDate = trip.endDate {
-            durationString += " to " + DateFormatter.tripDateFormatter.string(from: endDate)
+        var durationString = "All checkins"
+        if let startDate = trip.startDate, let endDate = trip.endDate {
+            durationString = "\(DateFormatter.tripDateFormatter.string(from: startDate)) - \(DateFormatter.tripDateFormatter.string(from: endDate))"
+        } else if let startDate = trip.startDate {
+            durationString = "After \(DateFormatter.tripDateFormatter.string(from: startDate))"
+        } else if let endDate = trip.endDate {
+            durationString = "Before \(DateFormatter.tripDateFormatter.string(from: endDate))"
         }
+        
         self.durationString = durationString
     }
 }

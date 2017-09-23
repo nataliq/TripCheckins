@@ -8,12 +8,8 @@
 
 import Foundation
 
-class PredefinedTripService: TripService {
-    
-    func addTrip(_ trip: Trip) {
-        assertionFailure("That's a predefined trip service, can't add additional trips")
-    }
-    
+class PredefinedTripService: TripLoadingService {
+
     func loadAllTrips(_ completion:([Trip]) -> Void) {
         let now = Date()
         

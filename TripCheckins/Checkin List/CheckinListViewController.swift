@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CheckinListViewControllerDelegate: class {
-    func listViewControllerDidTriggerAddAction(_ controller: CheckinListViewController)
+    
 }
 
 extension CheckinListViewController: DateFiltering {
@@ -52,8 +52,7 @@ class CheckinListViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         
         let refreshAction = #selector(refresh(_:))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: refreshAction)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: refreshAction)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: refreshAction, for: .valueChanged)
@@ -74,10 +73,6 @@ class CheckinListViewController: UITableViewController {
     // MARK: - Actions
     @objc func refresh(_ sender: Any) {
         controller.reloadListItems()
-    }
-    
-    @objc func addButtonTapped(_ sender: Any) {
-        delegate?.listViewControllerDidTriggerAddAction(self)
     }
     
     // MARK: - UITableViewDataSource

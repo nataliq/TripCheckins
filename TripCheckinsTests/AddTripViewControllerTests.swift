@@ -25,12 +25,14 @@ class AddTripViewControllerTests: XCTestCase {
     var viewControllerNavigationController: UINavigationController!
     let viewControllerDelegate = TestAddTripViewControllerDelegate()
     let dateFilter = DateFilter(startDate: Date().addingTimeInterval(-1), endDate: Date())
+    let tripCreationService = TestTripCreationService()
     
     override func setUp() {
         super.setUp()
         
         let dateFilterCreationView = TestDateFilterCreationView(dateFilter: dateFilter)
-        viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView)
+        viewController = AddTripViewController(dateFilterCreationView: dateFilterCreationView,
+                                               tripCreationService: tripCreationService)
         viewController.delegate = viewControllerDelegate
         
         viewControllerNavigationController = UINavigationController(rootViewController: viewController)
@@ -51,15 +53,22 @@ class AddTripViewControllerTests: XCTestCase {
     }
     
     class TestAddTripViewControllerDelegate: AddTripViewControllerDelegate {
-        var addActionDateFilter: DateFilter?
+        var tripId: String?
         var cancelActionTriggered = false
         
-        func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController, dateFilter filter: DateFilter) {
-            addActionDateFilter = filter
+        func addTripController(_ controller: AddTripViewController, didAddTripWithId tripId: String) {
+            self.tripId = tripId
         }
         
         func addTripControllerDidCancel(_ controller: AddTripViewController) {
             cancelActionTriggered = true
+        }
+    }
+    
+    class TestTripCreationService: TripCreationService {
+        var addedTrip: Trip?
+        func addTrip(_ trip: Trip) {
+            addedTrip = trip
         }
     }
     
@@ -72,9 +81,9 @@ class AddTripViewControllerTests: XCTestCase {
                                         from: nil,
                                         for: nil)
         
-        XCTAssertNotNil(viewControllerDelegate.addActionDateFilter)
-        XCTAssertEqual(viewControllerDelegate.addActionDateFilter!.startDate, dateFilter.startDate)
-        XCTAssertEqual(viewControllerDelegate.addActionDateFilter!.endDate, dateFilter.endDate)
+        XCTAssertNotNil(tripCreationService.addedTrip)
+        XCTAssertNotNil(viewControllerDelegate.tripId)
+        XCTAssertEqual(viewControllerDelegate.tripId, tripCreationService.addedTrip!.uuid)
         XCTAssertFalse(viewControllerDelegate.cancelActionTriggered)
     }
     
@@ -87,7 +96,8 @@ class AddTripViewControllerTests: XCTestCase {
                                         from: nil,
                                         for: nil)
         
-        XCTAssertNil(viewControllerDelegate.addActionDateFilter)
+        XCTAssertNil(tripCreationService.addedTrip)
+        XCTAssertNil(viewControllerDelegate.tripId)
         XCTAssertTrue(viewControllerDelegate.cancelActionTriggered)
     }
     
