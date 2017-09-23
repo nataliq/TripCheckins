@@ -70,6 +70,8 @@ class AddTripViewControllerTests: XCTestCase {
         func addTrip(_ trip: Trip) {
             addedTrip = trip
         }
+        func addObserver(_ observer: AnyObject & Observer) { }
+        func removeObserver(_ observer: AnyObject & Observer) { }
     }
     
     func testAddButtonAction() {

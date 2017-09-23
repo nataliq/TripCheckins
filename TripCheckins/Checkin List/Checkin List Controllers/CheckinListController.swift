@@ -8,10 +8,12 @@
 
 import Foundation
 
-protocol CheckinListController {
-    var currentListViewModel: CheckinListViewModel? { get }
+protocol ViewModelUpdateReporting {
     var onViewModelUpdate: (() -> ())? { set get }
-    
+}
+
+protocol CheckinListController: ViewModelUpdateReporting {
+    var currentListViewModel: CheckinListViewModel? { get }
     func reloadListItems()
 }
 

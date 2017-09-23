@@ -16,6 +16,7 @@
 		E10774FB1F40CF7F0047863A /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774FA1F40CF7F0047863A /* Trip.swift */; };
 		E10774FD1F40CFF70047863A /* PredefinedTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10774FC1F40CFF70047863A /* PredefinedTripService.swift */; };
 		E10775031F419DA30047863A /* AllCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */; };
+		E10A43FC1F67FB4100E401E3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A43FB1F67FB4100E401E3 /* Observable.swift */; };
 		E120F9681F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */; };
 		E145597C1F4419170008E0ED /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597B1F4419170008E0ED /* AddTripViewController.swift */; };
 		E145597E1F441E8C0008E0ED /* DateFilterCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E145597D1F441E8C0008E0ED /* DateFilterCreationView.swift */; };
@@ -82,6 +83,7 @@
 		E10774FA1F40CF7F0047863A /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		E10774FC1F40CFF70047863A /* PredefinedTripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedTripService.swift; sourceTree = "<group>"; };
 		E10775021F419DA30047863A /* AllCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCheckinsListControllerTests.swift; sourceTree = "<group>"; };
+		E10A43FB1F67FB4100E401E3 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E120F9671F41AB5200CE33E0 /* TripCheckinsListControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCheckinsListControllerTests.swift; sourceTree = "<group>"; };
 		E145597B1F4419170008E0ED /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
 		E145597D1F441E8C0008E0ED /* DateFilterCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterCreationView.swift; sourceTree = "<group>"; };
@@ -235,12 +237,13 @@
 			path = "Application flow";
 			sourceTree = "<group>";
 		};
-		E14A55641F5CC74A00796065 /* Common UI */ = {
+		E14A55641F5CC74A00796065 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */,
+				E10A43FB1F67FB4100E401E3 /* Observable.swift */,
 			);
-			path = "Common UI";
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E156EC4F1F39EB6B006AF828 /* FSOAuth */ = {
@@ -283,7 +286,7 @@
 				E1D529051F3BA10D000D52C1 /* Checkin List */,
 				E145597A1F4418EE0008E0ED /* Add trip */,
 				E14559811F45E2AF0008E0ED /* Date filtering */,
-				E14A55641F5CC74A00796065 /* Common UI */,
+				E14A55641F5CC74A00796065 /* Common */,
 				E16ED3681F39DB0500963177 /* Assets.xcassets */,
 				E16ED36A1F39DB0500963177 /* LaunchScreen.storyboard */,
 				E16ED36D1F39DB0600963177 /* Info.plist */,
@@ -476,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E145598C1F5318330008E0ED /* LocalTripsController.swift in Sources */,
+				E10A43FC1F67FB4100E401E3 /* Observable.swift in Sources */,
 				E107743F1F3DE70F0047863A /* AllCheckinsListController.swift in Sources */,
 				E1DBC20D1F6596FE00AEE620 /* LocalTripService.swift in Sources */,
 				E145597E1F441E8C0008E0ED /* DateFilterCreationView.swift in Sources */,

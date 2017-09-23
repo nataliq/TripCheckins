@@ -14,6 +14,8 @@ class LocalTripService: TripService {
     private var additionalTripLoadingService: TripLoadingService?
     private var additionalTrips: [Trip]?
     
+    // TODO: keep weak references
+    private lazy var observers: [AnyObject & Observer] = []
     
     init(localItemsStorage: LocalItemsStorage, additionalTripLoadingService: TripLoadingService? = nil) {
         self.localItemsStorage = localItemsStorage
@@ -41,6 +43,7 @@ class LocalTripService: TripService {
         if let tripsData = try? encoder.encode(trips) {
             localItemsStorage.set(tripsData, forKey: tripsKey)
         }
+        self.observers.forEach { $0.didUpdateObservableObject(self) }
     }
     
     private func localTrips() -> [Trip] {
@@ -51,4 +54,14 @@ class LocalTripService: TripService {
         }
         return trips
     }
+    
+    // MARK: - Observable
+    func addObserver(_ observer: AnyObject & Observer) {
+        observers.append(observer)
+    }
+    
+    func removeObserver(_ observer: AnyObject & Observer) {
+        _ = observers.index(where: { $0 === observer }).flatMap { observers.remove(at: $0) }
+    }
+    
 }
