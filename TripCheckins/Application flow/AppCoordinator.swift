@@ -18,7 +18,6 @@ class AppCoordinator {
                                                     additionalTripLoadingService: PredefinedTripService())
     
     var foursquareAuthorizer: FoursquareAuthorizer?
-    var authorizationPendingAction: (() -> ())?
     
     init(navigationController: UINavigationController,
          authorizationTokenKeeper: AuthorizationTokenKeeper,
@@ -36,7 +35,7 @@ class AppCoordinator {
     }
     
     // MARK: - Private
-    private func showAuthorizationViewController() {
+    private func requestAuthorization(withSuccessHandler successHandler: (() -> ())? = nil) {
         guard let authorizationFormPresenter = self.navigationController.viewControllers.last else {
             return
         }
@@ -45,7 +44,7 @@ class AppCoordinator {
         foursquareAuthorizer.initiateAuthorizationFlow(withPresenter: authorizationFormPresenter) { [weak self] token in
             if let token = token {
                 self?.authorizationTokenKeeper.persistAuthorizationToken(token)
-                self?.authorizationPendingAction?()
+                successHandler?()
             } else {
                 self?.showAuthorizationErrorUI()
             }
@@ -71,10 +70,9 @@ class AppCoordinator {
     
     private func showTrip(withId tripId: String) {
         guard let token = authorizationTokenKeeper.authorizationToken() else {
-            authorizationPendingAction = { [weak self] in
+            requestAuthorization(withSuccessHandler: { [weak self] in
                 self?.showTrip(withId: tripId)
-            }
-            showAuthorizationViewController()
+            })
             return
         }
         
