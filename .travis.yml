@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode9
+
+script:
+    - xcodebuild test -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.3.1' -project TripCheckins.xcodeproj -scheme TripCheckins CODE_SIGNING_REQUIRED=NO
