@@ -32,7 +32,7 @@ class PredefinedTripService: TripLoadingService {
                  name: "Last month"),
             Trip(startDate: lastYearOnThisDay,
                  endDate: lastYearOnThisDay.addingTimeInterval(24*3600),
-                 name: "That day, 1 year ago")
+                 name: "This day, 1 year ago")
         ]
         completion(trips)
     }

@@ -63,6 +63,7 @@ class AddTripViewController: UIViewController {
     // MARK: Actions
     @objc func doneButtonTapped(_ sender: Any) {
         let dateFilter = dateFilterCreationView.currentDateFilter
+        // TODO: Remove this after implementing the logic for disabling the Done button when there is no title
         var title = "New trip"
         if let text = titleTextField.text, text.isEmpty == false {
             title = text
