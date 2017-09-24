@@ -10,6 +10,7 @@ import Foundation
 
 class LocalTripService: TripService {
     
+    private let tripsKey = "trips"
     private var localItemsStorage: LocalItemsStorage
     private var additionalTripLoadingService: TripLoadingService?
     private var additionalTrips: [Trip]?

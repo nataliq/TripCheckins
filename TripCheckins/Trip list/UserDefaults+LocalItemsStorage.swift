@@ -8,8 +8,6 @@
 
 import Foundation
 
-let tripsKey = "trips"
-
 extension UserDefaults: LocalItemsStorage {
     
 }
