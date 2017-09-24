@@ -55,16 +55,13 @@ class TripListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+
         let viewModel = tripsController.tripViewModels![indexPath.row]
-        cell!.textLabel?.text = viewModel.title
-        cell!.detailTextLabel?.text = viewModel.durationString
+        cell.textLabel?.text = viewModel.title
+        cell.detailTextLabel?.text = viewModel.durationString
         
-        return cell!
+        return cell
     }
     
     // MARK: - UITableViewDelegate
