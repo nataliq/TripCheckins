@@ -8,15 +8,14 @@
 
 import Foundation
 
-class LocalTripService: TripService {
+class LocalTripService: TripService, ObserversContainer {
     
     private let tripsKey = "trips"
     private var localItemsStorage: LocalItemsStorage
     private var additionalTripLoadingService: TripLoadingService?
     private var additionalTrips: [Trip]?
     
-    // TODO: keep weak references
-    private lazy var observers: [AnyObject & Observer] = []
+    lazy var observers: [WeakObserverReference] = [WeakObserverReference]()
     
     init(localItemsStorage: LocalItemsStorage, additionalTripLoadingService: TripLoadingService? = nil) {
         self.localItemsStorage = localItemsStorage
@@ -44,7 +43,7 @@ class LocalTripService: TripService {
         if let tripsData = try? encoder.encode(trips) {
             localItemsStorage.set(tripsData, forKey: tripsKey)
         }
-        self.observers.forEach { $0.didUpdateObservableObject(self) }
+        notifyObservers()
     }
     
     private func localTrips() -> [Trip] {
@@ -55,14 +54,4 @@ class LocalTripService: TripService {
         }
         return trips
     }
-    
-    // MARK: - Observable
-    func addObserver(_ observer: AnyObject & Observer) {
-        observers.append(observer)
-    }
-    
-    func removeObserver(_ observer: AnyObject & Observer) {
-        _ = observers.index(where: { $0 === observer }).flatMap { observers.remove(at: $0) }
-    }
-    
 }

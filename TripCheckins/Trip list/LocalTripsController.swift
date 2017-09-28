@@ -23,7 +23,7 @@ public protocol LocalItemsStorage {
 class LocalTripsController: TripsController, Observer {
     var onViewModelUpdate: (() -> ())?
     
-    let tripService: TripService
+    private(set) var tripService: TripService
     private var trips: [Trip]?
     var tripViewModels: [TripViewModel]? {
         didSet {
