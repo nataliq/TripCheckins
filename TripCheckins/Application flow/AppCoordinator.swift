@@ -33,11 +33,14 @@ class AppCoordinator {
     
     // MARK: - Private
     private func showAuthorizationViewController() {
-        let foursquareAuthorizer = FoursquareAuthorizer()
-        let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
-        viewController.delegate = self
-        pushViewController(viewController)
-        self.foursquareAuthorizer = foursquareAuthorizer
+        if let foursquareAuthorizer = FoursquareAuthorizer() {
+            let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
+            viewController.delegate = self
+            pushViewController(viewController)
+            self.foursquareAuthorizer = foursquareAuthorizer
+        } else {
+            // TODO: handle auth error
+        }
     }
     
     private func showCheckinsList(authorizationToken token:String) {

@@ -24,6 +24,7 @@
 		E14559851F45E2C60008E0ED /* DateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559841F45E2C60008E0ED /* DateFilter.swift */; };
 		E14559871F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14559861F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift */; };
 		E14A55661F5CC76E00796065 /* UIColor+TripCheckins.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */; };
+		E154620E1F7C39F700218D9B /* foursquare_api_configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E154620D1F7C39F700218D9B /* foursquare_api_configuration.plist */; };
 		E156EC551F39ECA3006AF828 /* FoursquareAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */; };
 		E156EC571F39F486006AF828 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156EC561F39F486006AF828 /* AppCoordinator.swift */; };
 		E16ED3621F39DB0500963177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16ED3611F39DB0500963177 /* AppDelegate.swift */; };
@@ -83,6 +84,7 @@
 		E14559841F45E2C60008E0ED /* DateFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilter.swift; sourceTree = "<group>"; };
 		E14559861F4DCF4E0008E0ED /* AddTripDateFilterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripDateFilterViewModelTests.swift; sourceTree = "<group>"; };
 		E14A55651F5CC76E00796065 /* UIColor+TripCheckins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+TripCheckins.swift"; sourceTree = "<group>"; };
+		E154620D1F7C39F700218D9B /* foursquare_api_configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = foursquare_api_configuration.plist; path = Configuration/foursquare_api_configuration.plist; sourceTree = SOURCE_ROOT; };
 		E156EC501F39EB89006AF828 /* TripCheckins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TripCheckins-Bridging-Header.h"; sourceTree = "<group>"; };
 		E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareAuthorizer.swift; sourceTree = "<group>"; };
 		E156EC561F39F486006AF828 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				E1D528F41F3A0651000D52C1 /* UserDefaults+AuthorizationTokenKeeper.swift */,
 				E16ED3631F39DB0500963177 /* FoursquareAuthorizationViewController.swift */,
 				E156EC541F39ECA3006AF828 /* FoursquareAuthorizer.swift */,
+				E154620D1F7C39F700218D9B /* foursquare_api_configuration.plist */,
 			);
 			name = "Foursquare Authorization";
 			path = Authorization;
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E16ED36C1F39DB0500963177 /* LaunchScreen.storyboard in Resources */,
+				E154620E1F7C39F700218D9B /* foursquare_api_configuration.plist in Resources */,
 				E1D529001F3B023A000D52C1 /* CompactCheckinTableViewCell.xib in Resources */,
 				E16ED3691F39DB0500963177 /* Assets.xcassets in Resources */,
 			);

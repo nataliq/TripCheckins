@@ -14,9 +14,26 @@ protocol FoursquareAuthorizerDelegate: class {
 
 final class FoursquareAuthorizer {
     
-    private let clientId = "SO0SBDKGOYSZCH4JMQOEHJHMNTETYOWCURGWAZ22BPHKQDWE"
-    private let clientSecret = "KBYTRDYUXSUULW4P4YDELCDQVF3FZ1ZKNHLJOF0MLZ2CGUMQ"
-    private let callbackURIString = "tripcheckins://foursquare"
+    private let clientId: String
+    private let clientSecret: String
+    private let callbackURIString: String
+    
+    convenience init?() {
+        guard let plistPath = Bundle.main.path(forResource: "foursquare_api_configuration", ofType: "plist"),
+            let configuration = NSDictionary(contentsOfFile: plistPath) as? [String: String],
+            let clientId = configuration["client_id"],
+            let clientSecret = configuration["client_secret"],
+            let callbackURIString = configuration["callback_uri"] else {
+                return nil
+        }
+        self.init(clientId: clientId, clientSecret: clientSecret, callbackURIString: callbackURIString)
+    }
+    
+    init(clientId: String, clientSecret: String, callbackURIString: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.callbackURIString = callbackURIString
+    }
     
     weak var delegate: FoursquareAuthorizerDelegate?
     
