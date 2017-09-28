@@ -12,21 +12,38 @@ protocol FoursquareAuthorizerDelegate: class {
     func didFinishFetchingAuthorizationToken(_ token:String?)
 }
 
+enum FoursquareConfigurationError: Error {
+    case missingConfigurationFile
+    case missingConfigurationValueForKey(String)
+}
+
+private let configurationPlistPath = "foursquare_api_configuration"
+private let clientIdKey = "client_id"
+private let clientSecretKey = "client_secret"
+private let callbackURIStringKey = "callback_uri"
+
 final class FoursquareAuthorizer {
     
     private let clientId: String
     private let clientSecret: String
     private let callbackURIString: String
     
-    convenience init?() {
-        guard let plistPath = Bundle.main.path(forResource: "foursquare_api_configuration", ofType: "plist"),
-            let configuration = NSDictionary(contentsOfFile: plistPath) as? [String: String],
-            let clientId = configuration["client_id"],
-            let clientSecret = configuration["client_secret"],
-            let callbackURIString = configuration["callback_uri"] else {
-                return nil
+    convenience init() throws {
+        guard let plistPath = Bundle.main.path(forResource: configurationPlistPath, ofType: "plist"),
+            let configuration = NSDictionary(contentsOfFile: plistPath) as? [String: String] else {
+                throw FoursquareConfigurationError.missingConfigurationFile
         }
-        self.init(clientId: clientId, clientSecret: clientSecret, callbackURIString: callbackURIString)
+        
+        let getConfigurationValueForKey: (String) throws -> (String) = { key in
+            guard let value = configuration[key] else {
+                throw FoursquareConfigurationError.missingConfigurationValueForKey(key)
+            }
+            return value
+        }
+        
+        self.init(clientId: try getConfigurationValueForKey(clientIdKey),
+                  clientSecret: try getConfigurationValueForKey(clientSecretKey),
+                  callbackURIString: try getConfigurationValueForKey(callbackURIStringKey))
     }
     
     init(clientId: String, clientSecret: String, callbackURIString: String) {

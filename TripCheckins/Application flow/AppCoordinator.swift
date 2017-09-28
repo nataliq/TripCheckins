@@ -33,13 +33,14 @@ class AppCoordinator {
     
     // MARK: - Private
     private func showAuthorizationViewController() {
-        if let foursquareAuthorizer = FoursquareAuthorizer() {
+        do {
+            let foursquareAuthorizer = try FoursquareAuthorizer()
             let viewController = FoursquareAuthorizationViewController(foursquareAuthorizer: foursquareAuthorizer)
             viewController.delegate = self
             pushViewController(viewController)
             self.foursquareAuthorizer = foursquareAuthorizer
-        } else {
-            // TODO: handle auth error
+        } catch let error {
+            print(error)
         }
     }
     
