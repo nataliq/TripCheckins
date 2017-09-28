@@ -65,13 +65,13 @@ class AddTripViewControllerTests: XCTestCase {
         }
     }
     
-    class TestTripCreationService: TripCreationService {
+    class TestTripCreationService: TripCreationService, ObserversContainer {
+        lazy var observers: [WeakObserverReference] = []
+
         var addedTrip: Trip?
         func addTrip(_ trip: Trip) {
             addedTrip = trip
         }
-        func addObserver(_ observer: AnyObject & Observer) { }
-        func removeObserver(_ observer: AnyObject & Observer) { }
     }
     
     func testAddButtonAction() {
