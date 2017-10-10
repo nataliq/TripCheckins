@@ -8,12 +8,50 @@
 
 import Foundation
 
+protocol FoursquareAuthorizerDelegate: class {
+    func didFinishFetchingAuthorizationToken(_ token:String?)
+}
+
+enum FoursquareConfigurationError: Error {
+    case missingConfigurationFile
+    case missingConfigurationValueForKey(String)
+}
+
+private let configurationPlistPath = "foursquare_api_configuration"
+private let clientIdKey = "client_id"
+private let clientSecretKey = "client_secret"
+private let callbackURIStringKey = "callback_uri"
+
 final class FoursquareAuthorizer {
     
-    private let clientId = "SO0SBDKGOYSZCH4JMQOEHJHMNTETYOWCURGWAZ22BPHKQDWE"
-    private let clientSecret = "KBYTRDYUXSUULW4P4YDELCDQVF3FZ1ZKNHLJOF0MLZ2CGUMQ"
-    private let callbackURIString = "tripcheckins://foursquare"
+    private let clientId: String
+    private let clientSecret: String
+    private let callbackURIString: String
     private var tokenHandler: ((String?) -> ())?
+    
+    convenience init() throws {
+        guard let plistPath = Bundle.main.path(forResource: configurationPlistPath, ofType: "plist"),
+            let configuration = NSDictionary(contentsOfFile: plistPath) as? [String: String] else {
+                throw FoursquareConfigurationError.missingConfigurationFile
+        }
+        
+        let getConfigurationValueForKey: (String) throws -> (String) = { key in
+            guard let value = configuration[key] else {
+                throw FoursquareConfigurationError.missingConfigurationValueForKey(key)
+            }
+            return value
+        }
+        
+        self.init(clientId: try getConfigurationValueForKey(clientIdKey),
+                  clientSecret: try getConfigurationValueForKey(clientSecretKey),
+                  callbackURIString: try getConfigurationValueForKey(callbackURIStringKey))
+    }
+    
+    init(clientId: String, clientSecret: String, callbackURIString: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.callbackURIString = callbackURIString
+    }
     
     func initiateAuthorizationFlow(withPresenter presenter: UIViewController,
                                    tokenHandler handler: @escaping (String?) -> ()) {

@@ -1,0 +1,5 @@
+Update the foursquare_api_configuration plist with your Foursquare configuration values.
+Before doing so execute "git update-index --assume-unchanged Configuration/foursquare_api_configuration.plist".
+You can obtain client_id and client_secret after registering your Foursquare application here: https://foursquare.com/developers/register
+When doing so, you need to specify a redirect URL. The one you specify should be added to the plist and registered as a valid URL scheme for the app.
+Note: this is an example project and that's why the client secret is read from a plist, if you want to build a proper app consider storing the client secret on your server and modify the authentication code. Check how to implement the auth flow here: https://github.com/foursquare/foursquare-ios-oauth/

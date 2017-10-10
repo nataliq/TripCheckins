@@ -40,7 +40,13 @@ class AppCoordinator {
             return
         }
         
-        let foursquareAuthorizer = FoursquareAuthorizer()
+        var foursquareAuthorizer: FoursquareAuthorizer!
+        do {
+            foursquareAuthorizer = try FoursquareAuthorizer()
+        } catch let error {
+            print(error)
+        }
+        
         foursquareAuthorizer.initiateAuthorizationFlow(withPresenter: authorizationFormPresenter) { [weak self] token in
             if let token = token {
                 self?.authorizationTokenKeeper.persistAuthorizationToken(token)
