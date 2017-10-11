@@ -9,8 +9,8 @@
 import UIKit
 
 protocol AddTripViewControllerDelegate: class {
-    func addTripControllerDidTriggerAddAction(_ controller: AddTripViewController,
-                                              dateFilter filter:DateFilter)
+    func addTripController(_ controller: AddTripViewController,
+                           didAddTripWithId tripId: String)
     func addTripControllerDidCancel(_ controller: AddTripViewController)
 }
 
@@ -18,9 +18,19 @@ class AddTripViewController: UIViewController {
 
     weak var delegate: AddTripViewControllerDelegate?
     let dateFilterCreationView: UIView & DateFilterProvider
+    let tripCreationService: TripCreationService
     
-    init(dateFilterCreationView: UIView & DateFilterProvider) {
+    // TODO: Create view model for the text field and use it to disable the Done button
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.borderStyle = .roundedRect
+        textField.placeholder = "Title"
+        return textField
+    }()
+    
+    init(dateFilterCreationView: UIView & DateFilterProvider, tripCreationService: TripCreationService) {
         self.dateFilterCreationView = dateFilterCreationView
+        self.tripCreationService = tripCreationService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,18 +50,27 @@ class AddTripViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(cancelButtonTapped(_:)))
+        view.addSubview(titleTextField)
         view.addSubview(dateFilterCreationView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        dateFilterCreationView.frame = CGRect(x: 0, y: 100, width: view.frame.width, height: 50)
+        titleTextField.frame = CGRect(x: 11, y: 100, width: view.frame.width - 22, height: 50)
+        dateFilterCreationView.frame = CGRect(x: 0, y: 170, width: view.frame.width, height: 50)
     }
 
     // MARK: Actions
     @objc func doneButtonTapped(_ sender: Any) {
         let dateFilter = dateFilterCreationView.currentDateFilter
-        delegate?.addTripControllerDidTriggerAddAction(self, dateFilter: dateFilter)
+        // TODO: Remove this after implementing the logic for disabling the Done button when there is no title
+        var title = "New trip"
+        if let text = titleTextField.text, text.isEmpty == false {
+            title = text
+        }
+        let trip = Trip(startDate: dateFilter.startDate, endDate: dateFilter.endDate, name: title)
+        tripCreationService.addTrip(trip)
+        delegate?.addTripController(self, didAddTripWithId: trip.uuid)
     }
     
     @objc func cancelButtonTapped(_ sender: Any) {

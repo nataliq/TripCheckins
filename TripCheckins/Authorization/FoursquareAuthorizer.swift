@@ -27,6 +27,7 @@ final class FoursquareAuthorizer {
     private let clientId: String
     private let clientSecret: String
     private let callbackURIString: String
+    private var tokenHandler: ((String?) -> ())?
     
     convenience init() throws {
         guard let plistPath = Bundle.main.path(forResource: configurationPlistPath, ofType: "plist"),
@@ -52,15 +53,10 @@ final class FoursquareAuthorizer {
         self.callbackURIString = callbackURIString
     }
     
-    weak var delegate: FoursquareAuthorizerDelegate?
-    
-    func presentConnectUI(withPresenter presenter:UIViewController) -> (success: Bool, message: String?) {
-        let statuscode: FSOAuthStatusCode = FSOAuth.shared().authorizeUser(usingClientId:clientId,
-                                                                           nativeURICallbackString: callbackURIString,
-                                                                           universalURICallbackString: nil,
-                                                                           allowShowingAppStore:true,
-                                                                           presentFrom:presenter)
-        return connectResponse(forStatusCode: statuscode)
+    func initiateAuthorizationFlow(withPresenter presenter: UIViewController,
+                                   tokenHandler handler: @escaping (String?) -> ()) {
+        tokenHandler = handler
+        presentConfirmationAlert(withPresenter: presenter)
     }
     
     func requestAccessCode(forURL url:URL) -> Bool {
@@ -77,16 +73,44 @@ final class FoursquareAuthorizer {
         return true
     }
     
-    private func requestAccessToken(forCode accessCode:String) {
-        FSOAuth.shared().requestAccessToken(forCode: accessCode,
-                                            clientId: clientId,
-                                            callbackURIString: callbackURIString,
-                                            clientSecret: clientSecret) { (accessToken, success, errorCode) in
-                                                self.delegate?.didFinishFetchingAuthorizationToken(accessToken)
+    // MARK: - Private
+    
+    private func presentConfirmationAlert(withPresenter presenter:UIViewController) {
+        let alertMessage = "Link the app to your Foursquare account so that it can retrieve your checkins information"
+        let alertController = UIAlertController(title: "Use Foursquare?",
+                                                message: alertMessage,
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            self.presentConnectUI(withPresenter: presenter)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.tokenHandler?(nil)
+        })
+        
+        presenter.present(alertController, animated: true, completion: nil)
+    }
+    private func presentConnectUI(withPresenter presenter: UIViewController) {
+        let statuscode: FSOAuthStatusCode = FSOAuth.shared().authorizeUser(usingClientId: clientId,
+                                                                           nativeURICallbackString: callbackURIString,
+                                                                           universalURICallbackString: nil,
+                                                                           allowShowingAppStore: true,
+                                                                           presentFrom: presenter)
+        let response = connectResponse(forStatusCode: statuscode)
+        if !response.success {
+            print(response.message!)
         }
     }
     
-    private func connectResponse(forStatusCode code:FSOAuthStatusCode) -> (Bool, String?) {
+    private func requestAccessToken(forCode accessCode: String) {
+        FSOAuth.shared().requestAccessToken(forCode: accessCode,
+                                            clientId: clientId,
+                                            callbackURIString: callbackURIString,
+                                            clientSecret: clientSecret) { [weak self] (accessToken, success, errorCode) in
+                                                self?.tokenHandler?(accessToken)
+        }
+    }
+    
+    private func connectResponse(forStatusCode code: FSOAuthStatusCode) -> (success: Bool, message: String?) {
         var success = false
         var message: String?
         

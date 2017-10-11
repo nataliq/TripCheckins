@@ -29,9 +29,12 @@ class TripCheckinsListControllerTests: XCTestCase {
         }
     }
     
-    class TestTripService: TripService {
+    class TestTripService: TripService, ObserversContainer {
+        lazy var observers: [WeakObserverReference] = []
+        
+        func addTrip(_ trip: Trip) { }
         var testTrips: [String:Trip]?
-        func loadTrip(withId id: String, completionHandler completion: (Trip) -> Void) {
+        func loadTrip(withId id: String, completionHandler completion: (Trip?) -> Void) {
             if let trip = testTrips?[id] {
                 completion(trip)
             }
